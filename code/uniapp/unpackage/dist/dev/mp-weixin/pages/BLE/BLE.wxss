@@ -1,0 +1,26 @@
+
+.box {
+    width: 98%;
+    height: 400rpx;
+    box-sizing: border-box;
+    margin: 0 auto 20rpx;
+    border: 2px solid dodgerblue;
+}
+.item {
+    box-sizing: border-box;
+    padding: 10rpx;
+    border-bottom: 1px solid #ccc;
+}
+button {
+    margin-bottom: 20rpx;
+}
+.msg_x {
+    border: 2px solid seagreen;
+    width: 98%;
+    margin: 10rpx auto;
+    box-sizing: border-box;
+    padding: 20rpx;
+}
+.msg_x .msg_txt {
+    margin-bottom: 20rpx;
+}
