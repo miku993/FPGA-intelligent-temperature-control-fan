@@ -13,6 +13,14 @@ if (!Math) {
 const _sfc_main = {
   __name: "index",
   setup(__props) {
+    const speedSetting = common_vendor.ref(50);
+    const isManualMode = common_vendor.ref(true);
+    common_vendor.ref("");
+    common_vendor.ref("0000ABC0-0000-1000-8000-00805F9B34FB");
+    common_vendor.ref("0000ABC1-0000-1000-8000-00805F9B34FB");
+    common_vendor.ref("0000ABC2-0000-1000-8000-00805F9B34FB");
+    common_vendor.ref("");
+    common_vendor.ref("");
     const temperatureData = common_vendor.ref({ series: [{ name: "温度", data: 0.8 }] });
     const gaugeData = common_vendor.ref({
       categories: [
@@ -77,9 +85,6 @@ const _sfc_main = {
         }
       }
     });
-    const isManualMode = common_vendor.ref(false);
-    const speedSetting = common_vendor.ref(50);
-    const connectedDeviceId = common_vendor.ref(null);
     const modeStyle = common_vendor.computed(() => {
       return {
         color: isManualMode.value ? "#D84315" : "#00838F"
@@ -92,21 +97,6 @@ const _sfc_main = {
         // 手动时橙红，自动时灰色
       };
     });
-    function sendDataToESP32(data) {
-      if (connectedDeviceId.value) {
-        const buffer = new ArrayBuffer(data.length);
-        const dataView = new DataView(buffer);
-        for (let i = 0; i < data.length; i++) {
-          dataView.setUint8(i, data.charCodeAt(i));
-        }
-        common_vendor.index.writeBLECharacteristicValue({
-          deviceId: connectedDeviceId.value,
-          serviceId: "ABC0",
-          characteristicId: "ABC1",
-          value: buffer
-        });
-      }
-    }
     function handleSliderChange(event) {
       speedSetting.value = event.detail.value;
       speedData.value.series[0].data = speedSetting.value;
@@ -119,21 +109,6 @@ const _sfc_main = {
       const mode = isManualMode.value ? "man" : "auto";
       sendDataToESP32(`[mode:${mode},speed:50]`);
     }
-    function navigateToBLE() {
-      common_vendor.index.navigateTo({ url: "/pages/ble/ble" });
-    }
-    common_vendor.onLoad(() => {
-      common_vendor.index.onBLECharacteristicValueChange((res) => {
-        const receivedData = String.fromCharCode.apply(null, new Uint8Array(res.value));
-        const match = receivedData.match(/mode:(.*?),tempreature:(.*?),speed:(.*?)]/);
-        if (match) {
-          temperatureData.value.series[0].data = parseFloat(match[2]) / 100;
-          speedData.value.series[0].data = parseInt(match[3], 10);
-          gaugeData.value.series[0].data = parseInt(match[3], 10) / 100;
-          gaugeOpts.value.title.name = `${match[3]} RPM`;
-        }
-      });
-    });
     return (_ctx, _cache) => {
       return common_vendor.e({
         a: common_vendor.p({
@@ -141,32 +116,31 @@ const _sfc_main = {
           size: "25",
           color: "#333"
         }),
-        b: common_vendor.o(navigateToBLE),
-        c: common_vendor.p({
+        b: common_vendor.p({
           type: "arcbar",
           opts: temperatureOpts.value,
           chartData: temperatureData.value,
           canvasId: "temperatureChart",
           canvas2d: true
         }),
-        d: common_vendor.p({
+        c: common_vendor.p({
           type: "gauge",
           opts: gaugeOpts.value,
           chartData: gaugeData.value,
           canvasId: "gaugeChart",
           canvas2d: true
         }),
-        e: common_vendor.t(isManualMode.value ? "手动" : "自动"),
-        f: common_vendor.s(modeStyle.value),
-        g: common_vendor.t(speedSetting.value),
-        h: common_vendor.s(speedStyle.value),
-        i: common_vendor.t(isManualMode.value ? "切换到自动模式" : "切换到手动模式"),
-        j: common_vendor.o(toggleMode),
-        k: isManualMode.value
+        d: common_vendor.t(isManualMode.value ? "手动" : "自动"),
+        e: common_vendor.s(modeStyle.value),
+        f: common_vendor.t(speedSetting.value),
+        g: common_vendor.s(speedStyle.value),
+        h: common_vendor.t(isManualMode.value ? "切换到自动模式" : "切换到手动模式"),
+        i: common_vendor.o(toggleMode),
+        j: isManualMode.value
       }, isManualMode.value ? {
-        l: speedSetting.value,
-        m: common_vendor.o(handleSliderChange),
-        n: common_vendor.t(speedSetting.value)
+        k: speedSetting.value,
+        l: common_vendor.o(handleSliderChange),
+        m: common_vendor.t(speedSetting.value)
       } : {});
     };
   }

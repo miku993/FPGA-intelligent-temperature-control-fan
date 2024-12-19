@@ -80,7 +80,8 @@ void sendDataToBLE(const String &data)
   }
   pCharacteristicTX->setValue(dataToSend.c_str());
   pCharacteristicTX->notify();
-  Serial.printf("通过BLE发送数据: %s\n", dataToSend.c_str());
+  if (!dataToSend.isEmpty())
+    Serial.printf("通过BLE发送数据: %s\n", dataToSend.c_str());
   pCharacteristicTX->setValue(""); // 清空BLE特征值
 }
 

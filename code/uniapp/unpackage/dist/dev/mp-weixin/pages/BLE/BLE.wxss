@@ -1,26 +1,59 @@
 
+.container {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+  min-height: 100vh;
+  padding: 20rpx;
+}
+view {
+    background-color: #f5f5f5;
+}
+
+/* 顶部标题栏 */
+.header {
+    background-color: #3b8fcd;
+    padding: 20px;
+    text-align: center;
+}
+.title {
+    font-size: 24px;
+    color: white;
+}
+
+/* 设备列表 */
 .box {
-    width: 98%;
-    height: 400rpx;
+    width: 100%;
+    height: calc(100vh - 80px); /* 让列表占满屏幕 */
     box-sizing: border-box;
-    margin: 0 auto 20rpx;
-    border: 2px solid dodgerblue;
+    padding: 20px;
+    overflow-y: scroll;
 }
 .item {
     box-sizing: border-box;
-    padding: 10rpx;
-    border-bottom: 1px solid #ccc;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-button {
-    margin-bottom: 20rpx;
+.item-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
-.msg_x {
-    border: 2px solid seagreen;
-    width: 98%;
-    margin: 10rpx auto;
-    box-sizing: border-box;
-    padding: 20rpx;
+.device-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
 }
-.msg_x .msg_txt {
-    margin-bottom: 20rpx;
+.device-id {
+    font-size: 14px;
+    color: #888;
+}
+
+/* 触摸反馈效果 */
+.item:active {
+    background-color: #f0f0f0;
 }

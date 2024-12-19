@@ -1,15 +1,14 @@
 <template>
   <view class="container">
-    <!-- 顶部标题栏 -->
     <view class="header">
-      <text class="title">智能温控系统</text>
-      <!-- 右上角 "+" 图标 -->
-      <view @click="navigateToBLE" class="plus-icon">
-        <uni-icons type="plusempty" size="25" color="#333"></uni-icons>
+      <text class="title">智能温控风扇系统</text>
+      <view class="plus-icon">
+        <navigator url="/pages/BLE/BLE">
+          <uni-icons type="plusempty" size="25" color="#333"></uni-icons>
+        </navigator>
       </view>
     </view>
 
-    <!-- 两个图表并排显示 -->
     <view class="chart-container">
       <view class="chart-item">
         <qiun-data-charts
@@ -31,30 +30,24 @@
       </view>
     </view>
 
-    <!-- 数据栏显示 -->
     <view class="data-display">
-      <!-- 当前模式 -->
       <view class="data-item" :style="modeStyle">
         <text class="data-label">当前模式</text>
         <text class="data-value">{{ isManualMode ? '手动' : '自动' }}</text>
       </view>
-      <!-- 分隔线 -->
       <view class="divider"></view>
-      <!-- 当前转速 -->
       <view class="data-item" :style="speedStyle">
         <text class="data-label">当前转速</text>
         <text class="data-value">{{ speedSetting }} RPM</text>
       </view>
     </view>
 
-    <!-- 模式切换按钮 -->
     <view class="mode-toggle">
       <button @click="toggleMode" class="toggle-button">
         {{ isManualMode ? '切换到自动模式' : '切换到手动模式' }}
       </button>
     </view>
 
-    <!-- 手动模式下的滑轮控制 -->
     <view v-if="isManualMode" class="slider-container">
       <view class="slider-label">
         <text>min：0 RPM</text>
@@ -73,8 +66,20 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
-import { onLoad } from '@dcloudio/uni-app';
 
+const speedSetting = ref(50); // 当前设定转速
+const isManualMode = ref(true); // 是否手动模式
+const deviceId = ref(''); // 设备 ID
+const serviceId = ref('0000ABC0-0000-1000-8000-00805F9B34FB');
+const characteristicId_RX = ref('0000ABC1-0000-1000-8000-00805F9B34FB'); // 接收通道
+const characteristicId_TX = ref('0000ABC2-0000-1000-8000-00805F9B34FB'); // 发送通道
+const message = ref(''); // 显示接收到的消息
+const messageHex = ref(''); // 显示接收到的十六进制数据
+
+
+/**************************
+	uchart动态数据表
+**************************/
 // 原始图表数据
 const temperatureData = ref({ series: [{ name: '温度', data: 0.8 }] });
 const gaugeData = ref({
@@ -129,10 +134,10 @@ const gaugeOpts = ref({
   }
 });
 
-const isManualMode = ref(false); // 当前模式：手动/自动
-const speedSetting = ref(50); // 手动模式下的转速值
-const connectedDeviceId = ref(null); // BLE 设备 ID
 
+/**************************
+	界面逻辑
+**************************/
 // 动态样式：当前模式
 const modeStyle = computed(() => {
   return {
@@ -147,41 +152,7 @@ const speedStyle = computed(() => {
   };
 });
 
-// 在主页代码中，处理设备连接
-function handleDeviceConnection() {
-  if (connectedDeviceId.value) {
-    uni.connectBLEDevice({
-      deviceId: connectedDeviceId.value,
-      success() {
-        console.log("连接成功");
-        // 更新连接状态等
-      },
-      fail() {
-        console.log("连接失败");
-        // 提示用户连接失败
-      }
-    });
-  }
-}
-
-
-// 蓝牙通信函数
-function sendDataToESP32(data) {
-  if (connectedDeviceId.value) {
-    const buffer = new ArrayBuffer(data.length);
-    const dataView = new DataView(buffer);
-    for (let i = 0; i < data.length; i++) {
-      dataView.setUint8(i, data.charCodeAt(i));
-    }
-    uni.writeBLECharacteristicValue({
-      deviceId: connectedDeviceId.value,
-      serviceId: "ABC0",
-      characteristicId: "ABC1",
-      value: buffer,
-    });
-  }
-}
-
+// 滑动条改变时触发
 function handleSliderChange(event) {
   speedSetting.value = event.detail.value;
   speedData.value.series[0].data = speedSetting.value;
@@ -190,38 +161,36 @@ function handleSliderChange(event) {
   sendDataToESP32(`[mode:man,speed:${speedSetting.value}]`);
 }
 
+// 切换模式
 function toggleMode() {
   isManualMode.value = !isManualMode.value;
   const mode = isManualMode.value ? 'man' : 'auto';
   sendDataToESP32(`[mode:${mode},speed:50]`);
 }
 
-function navigateToBLE() {
-  uni.navigateTo({ url: '/pages/ble/ble' });
-}
+// 界面跳转，接收device值
+const onLoad = (options) => {
+    deviceId.value = options.deviceId;
+	console.log(deviceId.value)
+};
 
-// 处理 BLE 数据接收
-onLoad(() => {
-  uni.onBLECharacteristicValueChange((res) => {
-    const receivedData = String.fromCharCode.apply(null, new Uint8Array(res.value));
-    const match = receivedData.match(/mode:(.*?),tempreature:(.*?),speed:(.*?)]/);
-    if (match) {
-      temperatureData.value.series[0].data = parseFloat(match[2]) / 100;
-      speedData.value.series[0].data = parseInt(match[3], 10);
-      gaugeData.value.series[0].data = parseInt(match[3], 10) / 100;
-      gaugeOpts.value.title.name = `${match[3]} RPM`;
-    }
-  });
-});
 
+
+
+
+/**************************
+	BLE数据收发
+**************************/
 
 </script>
+
+
 
 <style scoped>
 .container {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #f5f7fa, #c3cfe2);
+  background: #f4f7fa;
   min-height: 100vh;
   padding: 20rpx;
 }
@@ -230,79 +199,109 @@ onLoad(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20rpx;
+  margin-bottom: 30rpx;
 }
 
 .title {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 26px;
+  font-weight: 500;
+  color: #333;
 }
 
 .plus-icon {
   margin-right: 20rpx;
 }
 
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30rpx;
+}
+
+.chart-item {
+  width: 48%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10rpx;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
 .data-display {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  margin: 20rpx 0;
+  margin-bottom: 20rpx;
 }
 
 .data-item {
   text-align: center;
+  width: 45%;
+  padding: 16rpx;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .data-label {
-  font-size: 16px;
-  color: #757575;
+  font-size: 14px;
+  color: #999;
 }
 
 .data-value {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 22px;
+  font-weight: 500;
+  color: #333;
 }
 
 .divider {
   width: 1px;
   height: 40px;
-  background-color: #90caf9;
-}
-
-.chart-container {
-  display: flex;
-  justify-content: space-around;
-}
-
-.chart-item {
-  width: 45%;
+  background-color: #ccc;
 }
 
 .mode-toggle {
-  margin: 20rpx 0;
+  margin-top: 20rpx;
   text-align: center;
 }
 
 .toggle-button {
   background-color: #4a90e2;
-  color: #fff;
+  color: #fff; /* 确保字体颜色为白色 */
   font-size: 16px;
+  padding: 10rpx 25rpx;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* 增加字体颜色变化过渡 */
 }
 
+.toggle-button:hover {
+  background-color: #357abd;
+  color: #fff; /* 保持字体颜色不变 */
+}
+
+.toggle-button:active {
+  background-color: #357abd; /* 按钮按下时改变背景色 */
+  color: #fff; /* 按钮按下时字体颜色保持为白色 */
+}
+
+
 .slider-container {
-  margin: 20rpx;
+  margin: 20rpx 0;
   text-align: center;
 }
 
 .slider-label {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10rpx;
+  margin-bottom: 8rpx;
   font-size: 14px;
+  color: #666;
 }
 
 .slider-value {
   font-size: 16px;
   margin-top: 10rpx;
+  color: #333;
 }
 </style>
