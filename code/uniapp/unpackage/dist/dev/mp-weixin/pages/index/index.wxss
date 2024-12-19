@@ -19,6 +19,28 @@
 .plus-icon.data-v-1cf27b2a {
   margin-right: 20rpx;
 }
+.data-display.data-v-1cf27b2a {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20rpx 0;
+}
+.data-item.data-v-1cf27b2a {
+  text-align: center;
+}
+.data-label.data-v-1cf27b2a {
+  font-size: 16px;
+  color: #757575;
+}
+.data-value.data-v-1cf27b2a {
+  font-size: 24px;
+  font-weight: bold;
+}
+.divider.data-v-1cf27b2a {
+  width: 1px;
+  height: 40px;
+  background-color: #90caf9;
+}
 .chart-container.data-v-1cf27b2a {
   display: flex;
   justify-content: space-around;
@@ -44,4 +66,8 @@
   justify-content: space-between;
   margin-bottom: 10rpx;
   font-size: 14px;
+}
+.slider-value.data-v-1cf27b2a {
+  font-size: 16px;
+  margin-top: 10rpx;
 }

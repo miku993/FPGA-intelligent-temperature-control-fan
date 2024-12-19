@@ -18,7 +18,7 @@
     }
   },
   "compileType": "miniprogram",
-  "libVersion": "3.7.1",
+  "libVersion": "3.7.2",
   "appid": "wxfcbb09e9c3863d0b",
   "projectname": "智能温控风扇界面",
   "condition": {

@@ -1,0 +1,32 @@
+
+.container.data-v-727d09f0 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f7fa;
+  height: 100vh;
+}
+.header.data-v-727d09f0 {
+  margin: 20px 0;
+}
+.title.data-v-727d09f0 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+.chart-box.data-v-727d09f0 {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.slider-container.data-v-727d09f0 {
+  margin-top: 20px;
+  width: 90%;
+  text-align: center;
+}
+text.data-v-727d09f0 {
+  font-size: 16px;
+  color: #333;
+}

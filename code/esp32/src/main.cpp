@@ -14,21 +14,48 @@ String lastSentData = "";   // 上一次发送的数据
 // 串口通信相关
 const uint32_t SERIAL_BAUD_RATE = 115200; // 串口波特率
 
-// 初始化BLE
 void initBLE()
 {
-  NimBLEDevice::init("智能风扇"); // 设置BLE设备名称
+  NimBLEDevice::init("SmartFan"); // 设置设备名称为英文
+
+  // 创建BLE服务器
   pServer = NimBLEDevice::createServer();
-  pService = pServer->createService("ABC0");
+
+  // 创建服务，使用128位UUID
+  pService = pServer->createService("0000ABC0-0000-1000-8000-00805F9B34FB");
+
+  // 创建特征值
   pCharacteristicRX = pService->createCharacteristic(
-      "ABC1", NIMBLE_PROPERTY::WRITE);
+      "0000ABC1-0000-1000-8000-00805F9B34FB",
+      NIMBLE_PROPERTY::WRITE);
+
   pCharacteristicTX = pService->createCharacteristic(
-      "ABC2", NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY);
-  pService->start();
+      "0000ABC2-0000-1000-8000-00805F9B34FB",
+      NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::NOTIFY);
+
+  // 启动服务
+  if (pService->start())
+  {
+    Serial.println("Service started successfully.");
+  }
+  else
+  {
+    Serial.println("Failed to start service.");
+  }
+
+  // 设置广播
   pAdvertising = NimBLEDevice::getAdvertising();
-  pAdvertising->addServiceUUID("ABC0");
-  pAdvertising->start();
-  Serial.println("BLE初始化完成，设备开始广播...");
+  pAdvertising->addServiceUUID("0000ABC0-0000-1000-8000-00805F9B34FB");
+
+  // 开始广播
+  if (pAdvertising->start())
+  {
+    Serial.println("BLE initialized successfully, advertising started...");
+  }
+  else
+  {
+    Serial.println("Failed to start advertising.");
+  }
 }
 
 // 从串口读取数据，并封装为标准字符串格式

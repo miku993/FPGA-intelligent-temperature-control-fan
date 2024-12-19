@@ -1,28 +1,42 @@
 <template>
     <view>
-        <!-- 设备列表，只显示设备名称 -->
         <scroll-view
             scroll-y
             class="box"
         >
-            <view class="item" v-for="item in blueDeviceList" :key="item.deviceId" @click="connect(item)">
+            <view class="item" v-for="item in blueDeviceList" @click="connect(item)">
+                <view>
+                    <text>id: {{ item.deviceId }}</text>    
+                </view>
                 <view>
                     <text>name: {{ item.name }}</text>    
                 </view>
             </view>
         </scroll-view>
 
-        <!-- 操作按钮 -->
         <button @click="initBlue">1 初始化蓝牙</button>
-        <button @click="discovery">2 搜索附近蓝牙设备</button>
-        <button @click="send">3 发送数据</button>
 
-        <!-- 显示接收到的内容 -->
+        <button @click="discovery">2 搜索附近蓝牙设备</button>
+
+        <button @click="getServices">3 获取蓝牙服务</button>
+
+        <button @click="getCharacteristics">4 获取特征值</button>
+
+        <button @click="notify">5 开启消息监听</button>
+
+        <button @click="send">6 发送数据</button>
+
+        <button @click="read">7 读取数据</button>
+
         <view class="msg_x">
             <view class="msg_txt">
                 监听到的内容：{{ message }}
             </view>
+            <view class="msg_hex">
+                监听到的内容（十六进制）：{{ messageHex }}
+            </view>    
         </view>    
+
     </view>
 </template>
 
@@ -32,35 +46,31 @@ import { ref } from 'vue'
 // 搜索到的蓝牙设备列表
 const blueDeviceList = ref([])
 
-// 设备信息
-const deviceId = ref('')
-const serviceId = ref('ABC0') // 使用 ESP32 端的服务UUID
-const characteristicRX = ref('ABC1') // 接收数据特征UUID
-const characteristicTX = ref('ABC2') // 发送数据特征UUID
-
 // 【1】初始化蓝牙
 function initBlue() {
     uni.openBluetoothAdapter({
         success(res) {
-            console.log('初始化蓝牙成功', res)
+            console.log('初始化蓝牙成功')
+            console.log(res)
         },
         fail(err) {
-            console.log('初始化蓝牙失败', err)
+            console.log('初始化蓝牙失败')
+            console.error(err)
         }
     })
 }
 
 // 【2】开始搜寻附近设备
 function discovery() {
-    // 只启动一次设备搜索
     uni.startBluetoothDevicesDiscovery({
         success(res) {
-            console.log('开始搜索', res)
+            console.log('开始搜索')
             // 开启监听回调
             uni.onBluetoothDeviceFound(found)
         },
         fail(err) {
-            console.log('搜索失败', err)
+            console.log('搜索失败')
+            console.error(err)
         }
     })
 }
@@ -68,30 +78,34 @@ function discovery() {
 // 【3】找到新设备就触发该方法
 function found(res) {
     console.log(res)
-    // 去重设备列表
-    blueDeviceList.value = [...new Set(blueDeviceList.value.concat(res.devices))]
+    blueDeviceList.value.push(res.devices[0])
 }
+
+// 蓝牙设备的id
+const deviceId = ref('')
 
 // 【4】连接设备
 function connect(data) {
-    deviceId.value = data.deviceId // 获取设备ID
+    console.log(data)
+
+    deviceId.value = data.deviceId // 将获取到的设备ID存起来
 
     uni.createBLEConnection({
         deviceId: deviceId.value,
         success(res) {
-            console.log('连接成功', res)
+            console.log('连接成功')
+            console.log(res)
+            // 停止搜索
             stopDiscovery()
             uni.showToast({
                 title: '连接成功'
             })
-            // 获取特征值并开始监听
-            getCharacteristics()
-            notify()
         },
         fail(err) {
-            console.log('连接失败', err)
+            console.log('连接失败')
+            console.error(err)
             uni.showToast({
-                title: '连接失败',
+                title: '连接成功',
                 icon: 'error'
             })
         }
@@ -102,43 +116,81 @@ function connect(data) {
 function stopDiscovery() {
     uni.stopBluetoothDevicesDiscovery({
         success(res) {
-            console.log('停止搜索', res)
+            console.log('停止成功')
+            console.log(res)
         },
         fail(err) {
-            console.log('停止失败', err)
+            console.log('停止失败')
+            console.error(err)
         }
     })
 }
 
-// 【6】获取特征值
+// 【6】获取服务
+function getServices() {
+    // 如果是自动链接的话，uni.getBLEDeviceServices方法建议使用setTimeout延迟1秒后再执行
+    uni.getBLEDeviceServices({
+        deviceId: deviceId.value,
+        success(res) {
+            console.log(res) // 可以在res里判断有没有硬件佬给你的服务
+            uni.showToast({
+                title: '获取服务成功'
+            })
+        },
+        fail(err) {
+            console.error(err)
+            uni.showToast({
+                title: '获取服务失败',
+                icon: 'error'
+            })
+        }
+    })
+}
+
+// 硬件提供的服务id，开发中需要问硬件佬获取该id
+const serviceId = ref('0000ABC0-0000-1000-8000-00805F9B34FB')
+
+// 【7】获取特征值
 function getCharacteristics() {
+    // 如果是自动链接的话，uni.getBLEDeviceCharacteristics方法建议使用setTimeout延迟1秒后再执行
     uni.getBLEDeviceCharacteristics({
         deviceId: deviceId.value,
         serviceId: serviceId.value,
         success(res) {
-            console.log('获取特征值成功', res)
+            console.log(res) // 可以在此判断特征值是否支持读写等操作，特征值其实也需要提前向硬件佬索取的
+            uni.showToast({
+                title: '获取特征值成功'
+            })
         },
         fail(err) {
-            console.error('获取特征值失败', err)
+            console.error(err)
+            uni.showToast({
+                title: '获取特征值失败',
+                icon: 'error'
+            })
         }
     })
 }
 
-// 【7】开启消息监听
+const characteristicId_TX = ref('0000ABC2-0000-1000-8000-00805F9B34FB')
+const characteristicId_RX = ref('0000ABC1-0000-1000-8000-00805F9B34FB')
+
+// 【8】开启消息监听
 function notify() {
     uni.notifyBLECharacteristicValueChange({
-        deviceId: deviceId.value,
-        serviceId: serviceId.value,
-        characteristicId: characteristicTX.value, // 监听发送数据的特征
+        deviceId: deviceId.value, // 设备id
+        serviceId: serviceId.value, // 监听指定的服务
+        characteristicId: characteristicId_TX.value, // 监听对应的特征值
+		state: true, // 开启监听
         success(res) {
-            console.log('开始监听', res)
+            console.log(res)
             listenValueChange()
             uni.showToast({
                 title: '已开启监听'
             })
         },
         fail(err) {
-            console.error('监听失败', err)
+            console.error(err)
             uni.showToast({
                 title: '监听失败',
                 icon: 'error'
@@ -147,60 +199,107 @@ function notify() {
     })
 }
 
-// 【8】监听消息变化
+// ArrayBuffer转16进度字符串示例
+function ab2hex(buffer) {
+  const hexArr = Array.prototype.map.call(
+    new Uint8Array(buffer),
+    function (bit) {
+      return ('00' + bit.toString(16)).slice(-2)
+    }
+  )
+  return hexArr.join('')
+}
+
+// 将16进制的内容转成我们看得懂的字符串内容
+function hexCharCodeToStr(hexCharCodeStr) {
+    var trimedStr = hexCharCodeStr.trim();
+    var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
+    var len = rawStr.length;
+    if (len % 2 !== 0) {
+            alert("存在非法字符!");
+            return "";
+    }
+    var curCharCode;
+    var resultStr = [];
+    for (var i = 0; i < len; i = i + 2) {
+            curCharCode = parseInt(rawStr.substr(i, 2), 16);
+            resultStr.push(String.fromCharCode(curCharCode));
+    }
+    return resultStr.join("");
+}
+
+// 监听到的内容
+const message = ref('')
+const messageHex = ref('') // 十六进制
+
+// 【9】监听消息变化
 function listenValueChange() {
     uni.onBLECharacteristicValueChange(res => {
         console.log(res)
-        let result = ab2hex(res.value) // 将接收到的数据转换为十六进制
-        message.value = result
+        let resHex = ab2hex(res.value)
+        console.log(resHex)
+        messageHex.value = resHex
+        let result = hexCharCodeToStr(resHex)
+        console.log(String(result))
+        message.value = String(result)
     })
 }
 
-// 16进制转换为字符串
-function ab2hex(buffer) {
-    const hexArr = Array.prototype.map.call(
-        new Uint8Array(buffer),
-        function (bit) {
-            return ('00' + bit.toString(16)).slice(-2)
-        }
-    )
-    return hexArr.join('')
-}
-
-// 发送数据
+// 【10】发送数据
 function send() {
-    const msg = 'hello' // 要发送的数据
+    // 向蓝牙设备发送一个0x00的16进制数据
+    let msg = '[mode:man,speed:50]'
 
     const buffer = new ArrayBuffer(msg.length)
     const dataView = new DataView(buffer)
+    // dataView.setUint8(0, 0)
 
-    // 填充数据
-    for (let i = 0; i < msg.length; i++) {
-        dataView.setUint8(i, msg.charAt(i).charCodeAt())
+    for (var i = 0; i < msg.length; i++) {
+      dataView.setUint8(i, msg.charAt(i).charCodeAt())
     }
 
     uni.writeBLECharacteristicValue({
-        deviceId: deviceId.value,
-        serviceId: serviceId.value,
-        characteristicId: characteristicRX.value, // 发送到接收特征
-        value: buffer,
-        success(res) {
-            console.log('发送成功', res)
+      deviceId: deviceId.value,
+      serviceId: serviceId.value,
+      characteristicId: characteristicId_RX.value,
+      value: buffer,
+      success(res) {
+        console.log('writeBLECharacteristicValue success', res.errMsg)
             uni.showToast({
-                title: '数据发送成功'
+                title: 'write指令发送成功'
             })
-        },
+      },
         fail(err) {
-            console.error('发送失败', err)
+            console.error(err)
             uni.showToast({
-                title: '数据发送失败',
+                title: 'write指令发送失败',
                 icon: 'error'
             })
         }
     })
 }
 
-const message = ref('') // 显示接收到的消息
+// 【11】读取数据
+function read() {
+    uni.readBLECharacteristicValue({
+        deviceId: deviceId.value,
+        serviceId: serviceId.value,
+        characteristicId: characteristicId_TX.value,
+        success(res) {
+            console.log(res)
+            uni.showToast({
+                title: 'read指令发送成功'
+            })
+        },
+        fail(err) {
+            console.error(err)
+            uni.showToast({
+                title: 'read指令发送失败',
+                icon: 'error'
+            })
+        }
+    })
+}
 </script>
 
 <style>

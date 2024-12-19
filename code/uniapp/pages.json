@@ -3,11 +3,18 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "主页"
 			}
 		},
 		{
 			"path" : "pages/BLE/BLE",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
+		},
+		{
+			"path" : "pages/test/test",
 			"style" : 
 			{
 				"navigationBarTitleText" : ""
