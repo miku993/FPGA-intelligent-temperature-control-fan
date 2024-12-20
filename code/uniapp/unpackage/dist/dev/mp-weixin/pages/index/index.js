@@ -15,10 +15,10 @@ const _sfc_main = {
   setup(__props) {
     const speedSetting = common_vendor.ref(50);
     const isManualMode = common_vendor.ref(true);
-    common_vendor.ref("");
-    common_vendor.ref("0000ABC0-0000-1000-8000-00805F9B34FB");
-    common_vendor.ref("0000ABC1-0000-1000-8000-00805F9B34FB");
-    common_vendor.ref("0000ABC2-0000-1000-8000-00805F9B34FB");
+    const deviceId = common_vendor.ref("87686B4D-2537-0287-7904-FDDBA2939AA6");
+    const serviceId = common_vendor.ref("0000ABC0-0000-1000-8000-00805F9B34FB");
+    const characteristicId_RX = common_vendor.ref("0000ABC1-0000-1000-8000-00805F9B34FB");
+    const characteristicId_TX = common_vendor.ref("0000ABC2-0000-1000-8000-00805F9B34FB");
     common_vendor.ref("");
     common_vendor.ref("");
     const temperatureData = common_vendor.ref({ series: [{ name: "温度", data: 0.8 }] });
@@ -102,12 +102,163 @@ const _sfc_main = {
       speedData.value.series[0].data = speedSetting.value;
       gaugeData.value.series[0].data = speedSetting.value / 100;
       gaugeOpts.value.title.name = `${speedSetting.value} RPM`;
-      sendDataToESP32(`[mode:man,speed:${speedSetting.value}]`);
+      sendDataToBLE(`[mode:man,speed:${speedSetting.value}]`);
     }
     function toggleMode() {
       isManualMode.value = !isManualMode.value;
       const mode = isManualMode.value ? "man" : "auto";
-      sendDataToESP32(`[mode:${mode},speed:50]`);
+      sendDataToBLE(`[mode:${mode},speed:50]`);
+    }
+    common_vendor.index.onBLEConnectionStateChange((res) => {
+      console.log("设备连接状态变化", res);
+      if (res.connected) {
+        setTimeout(() => {
+          getServices();
+        }, 1e3);
+        setTimeout(() => {
+          getCharacteristics();
+        }, 1e3);
+        setTimeout(() => {
+          receiveDataFromBLE();
+        }, 2e3);
+      } else {
+        console.log("设备已断开");
+      }
+    });
+    function getServices() {
+      common_vendor.index.getBLEDeviceServices({
+        deviceId: deviceId.value,
+        success(res) {
+          console.log("设备ID:", deviceId);
+          console.log(res);
+        },
+        fail(err) {
+          console.error(err);
+          common_vendor.index.showToast({
+            title: "获取服务失败",
+            icon: "error"
+          });
+        }
+      });
+    }
+    function getCharacteristics() {
+      common_vendor.index.getBLEDeviceCharacteristics({
+        deviceId: deviceId.value,
+        serviceId: serviceId.value,
+        success(res) {
+          console.log(res);
+        },
+        fail(err) {
+          console.error(err);
+          common_vendor.index.showToast({
+            title: "获取特征值失败",
+            icon: "error"
+          });
+        }
+      });
+    }
+    function receiveDataFromBLE() {
+      common_vendor.index.notifyBLECharacteristicValueChange({
+        deviceId: deviceId.value,
+        // 设备ID
+        serviceId: serviceId.value,
+        // 服务ID
+        characteristicId: characteristicId_TX.value,
+        // 接收通道的特征值
+        state: true,
+        // 设置为true表示开启监听
+        success(res) {
+          console.log("已开启监听", res);
+          setTimeout(() => {
+            listenValueChange();
+          }, 50);
+        },
+        fail(err) {
+          console.error(err);
+        }
+      });
+    }
+    function listenValueChange() {
+      common_vendor.index.onBLECharacteristicValueChange((res) => {
+        console.log("接收到的BLE数据：", res);
+        let resHex = ab2hex(res.value);
+        console.log("接收到的十六进制数据：", resHex);
+        let result = hexCharCodeToStr(resHex);
+        console.log("接收到的字符串数据：", result);
+        const data = parseReceivedData(result);
+        console.log("解包后的数据：", data);
+        temperatureData.value.series[0].data = data.temperature;
+        speedData.value.series[0].data = data.speed;
+        gaugeData.value.series[0].data = data.speed / 100;
+        gaugeOpts.value.title.name = `${data.speed} RPM`;
+      });
+    }
+    function parseReceivedData(data) {
+      const regex = /mode:(\w+),temperature:(\d+),speed:(\d+)/;
+      const match = data.match(regex);
+      if (match) {
+        return {
+          mode: match[1],
+          // 自动/手动模式
+          temperature: parseInt(match[2]),
+          // 温度
+          speed: parseInt(match[3])
+          // 转速
+        };
+      } else {
+        console.error("无法解析接收到的数据");
+      }
+    }
+    function sendDataToBLE(message) {
+      console.log("发送数据：", message);
+      const buffer = stringToBuffer(message);
+      common_vendor.index.writeBLECharacteristicValue({
+        deviceId: deviceId.value,
+        serviceId: serviceId.value,
+        characteristicId: characteristicId_RX.value,
+        // 发送通道的特征值
+        value: buffer,
+        // 传递转换后的Buffer
+        success(res) {
+          console.log("发送数据成功", res.errMsg);
+        },
+        fail(err) {
+          console.log("发送数据失败", err.errMsg);
+        }
+      });
+    }
+    function stringToBuffer(str) {
+      const buffer = new ArrayBuffer(str.length);
+      const dataView = new DataView(buffer);
+      for (let i = 0; i < str.length; i++) {
+        dataView.setUint8(i, str.charAt(i).charCodeAt());
+      }
+      return buffer;
+    }
+    function ab2hex(buffer) {
+      const hexArr = Array.prototype.map.call(
+        new Uint8Array(buffer),
+        function(bit) {
+          return ("00" + bit.toString(16)).slice(-2);
+        }
+      );
+      return hexArr.join("");
+    }
+    function hexCharCodeToStr(hexCharCodeStr) {
+      var trimedStr = hexCharCodeStr.trim();
+      var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
+      var len = rawStr.length;
+      if (len % 2 !== 0) {
+        alert("存在非法字符!");
+        return "";
+      }
+      var curCharCode;
+      var resultStr = [];
+      for (var i = 0; i < len; i = i + 2) {
+        curCharCode = parseInt(rawStr.substr(i, 2), 16);
+        resultStr.push(String.fromCharCode(curCharCode));
+      }
+      return resultStr.join("");
     }
     return (_ctx, _cache) => {
       return common_vendor.e({

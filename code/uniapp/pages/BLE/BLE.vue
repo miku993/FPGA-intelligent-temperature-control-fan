@@ -28,9 +28,8 @@ const deviceCount = ref(0)
 // 蓝牙设备的id
 const deviceId = ref('')
 // 硬件提供的服务id
-const serviceId = ref('0000ABC0-0000-1000-8000-00805F9B34FB')
-const characteristicId_TX = ref('0000ABC2-0000-1000-8000-00805F9B34FB')
-const characteristicId_RX = ref('0000ABC1-0000-1000-8000-00805F9B34FB')
+const serviceId = ref('0000ABC0-0000-1000-8000-00805F9B34FB')	//ABC0
+
 
 // 初始化蓝牙
 function initBlue() {
@@ -55,7 +54,7 @@ function startDiscovery() {
             setTimeout(() => {
                 // 每次找到新设备都会触发 found 回调
                 uni.onBluetoothDeviceFound(found)
-            }, 500) // 延时2秒后开始监听设备
+            }, 100) // 延时2秒后开始监听设备
         },
         fail(err) {
             console.error('设备搜索失败', err)
@@ -91,9 +90,10 @@ function connect(data) {
                 console.log('连接成功', res);
                 stopDiscovery();  // 停止设备搜索
                 // 使用 uni.navigateTo 进行页面跳转，传递设备ID
-                uni.navigateTo({
-                    url: `/pages/index/index?deviceId=${deviceId.value}`
+                uni.reLaunch({
+                  url: `/pages/index/index?deviceId=${deviceId.value}`
                 });
+
                 uni.showToast({
                     title: '连接成功'
                 });

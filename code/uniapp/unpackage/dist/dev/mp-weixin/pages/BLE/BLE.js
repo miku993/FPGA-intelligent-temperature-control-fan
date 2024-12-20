@@ -7,8 +7,6 @@ const _sfc_main = {
     const deviceCount = common_vendor.ref(0);
     const deviceId = common_vendor.ref("");
     common_vendor.ref("0000ABC0-0000-1000-8000-00805F9B34FB");
-    common_vendor.ref("0000ABC2-0000-1000-8000-00805F9B34FB");
-    common_vendor.ref("0000ABC1-0000-1000-8000-00805F9B34FB");
     function initBlue() {
       common_vendor.index.openBluetoothAdapter({
         success(res) {
@@ -28,7 +26,7 @@ const _sfc_main = {
           console.log("开始搜索设备");
           setTimeout(() => {
             common_vendor.index.onBluetoothDeviceFound(found);
-          }, 500);
+          }, 100);
         },
         fail(err) {
           console.error("设备搜索失败", err);
@@ -57,7 +55,7 @@ const _sfc_main = {
           success(res) {
             console.log("连接成功", res);
             stopDiscovery();
-            common_vendor.index.navigateTo({
+            common_vendor.index.reLaunch({
               url: `/pages/index/index?deviceId=${deviceId.value}`
             });
             common_vendor.index.showToast({

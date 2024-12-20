@@ -10,7 +10,8 @@ NimBLEAdvertising *pAdvertising = nullptr;
 
 // 数据缓存
 String lastSpeedValue = ""; // 上一次的speed值
-String lastSentData = "";   // 上一次发送的数据
+String lastModeValue = "";
+
 // 串口通信相关
 const uint32_t SERIAL_BAUD_RATE = 115200; // 串口波特率
 
@@ -105,6 +106,26 @@ String parseSpeed(const String &data)
   return "";
 }
 
+// 解析数据中的mode值
+String parseMode(const String &data)
+{
+  int modeIndex = data.indexOf("mode:");
+  if (modeIndex != -1)
+  {
+    int colonIndex = data.indexOf(":", modeIndex);
+    if (colonIndex != -1)
+    {
+      int commaIndex = data.indexOf(",", colonIndex);
+      if (commaIndex == -1)
+      {
+        commaIndex = data.length();
+      }
+      return data.substring(colonIndex + 1, commaIndex);
+    }
+  }
+  return "";
+}
+
 // 处理从BLE接收到的数据，并发送到串口
 void handleBLEData()
 {
@@ -112,11 +133,16 @@ void handleBLEData()
   if (!receivedData.isEmpty())
   {
     String currentSpeed = parseSpeed(receivedData);
-    if (currentSpeed != lastSpeedValue)
+    String currentMode = parseMode(receivedData);
+
+    // 检查mode或speed值是否改变
+    if (currentMode != lastModeValue || currentSpeed != lastSpeedValue)
     {
       Serial.println(receivedData);
+      lastModeValue = currentMode;
       lastSpeedValue = currentSpeed;
     }
+
     pCharacteristicRX->setValue(""); // 清空BLE特征值
   }
 }

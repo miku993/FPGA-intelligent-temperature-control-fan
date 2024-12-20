@@ -69,12 +69,13 @@ import { ref, computed, onMounted } from 'vue';
 
 const speedSetting = ref(50); // 当前设定转速
 const isManualMode = ref(true); // 是否手动模式
-const deviceId = ref(''); // 设备 ID
+const deviceId = ref('87686B4D-2537-0287-7904-FDDBA2939AA6'); // 设备 ID
 const serviceId = ref('0000ABC0-0000-1000-8000-00805F9B34FB');
 const characteristicId_RX = ref('0000ABC1-0000-1000-8000-00805F9B34FB'); // 接收通道
 const characteristicId_TX = ref('0000ABC2-0000-1000-8000-00805F9B34FB'); // 发送通道
-const message = ref(''); // 显示接收到的消息
-const messageHex = ref(''); // 显示接收到的十六进制数据
+// 监听到的内容
+const message = ref('')
+const messageHex = ref('') // 十六进制
 
 
 /**************************
@@ -158,29 +159,227 @@ function handleSliderChange(event) {
   speedData.value.series[0].data = speedSetting.value;
   gaugeData.value.series[0].data = speedSetting.value / 100;
   gaugeOpts.value.title.name = `${speedSetting.value} RPM`;
-  sendDataToESP32(`[mode:man,speed:${speedSetting.value}]`);
+  sendDataToBLE(`[mode:man,speed:${speedSetting.value}]`);
 }
 
-// 切换模式
+// 切换模式并发送数据
 function toggleMode() {
   isManualMode.value = !isManualMode.value;
   const mode = isManualMode.value ? 'man' : 'auto';
-  sendDataToESP32(`[mode:${mode},speed:50]`);
+  sendDataToBLE(`[mode:${mode},speed:50]`); // 发送数据
 }
 
 // 界面跳转，接收device值
 const onLoad = (options) => {
-    deviceId.value = options.deviceId;
-	console.log(deviceId.value)
+  console.log('主页加载完成，接收到的参数：', options);
+  deviceId.value = options.deviceId;
+  console.log('接收到的 deviceId:', deviceId.value);
 };
 
 
+/**************************
+	BLE数据接收与解包
+	// uni.onBLEConnectionStateChange() 检测蓝牙设备连接状态变化
+	// uni.notifyBLECharacteristicValueChange() 检测特征变化
+	// uni.onBLECharacteristicValueChange() 处理变化的值
+**************************/// 蓝牙连接状态变化时触发
+uni.onBLEConnectionStateChange((res) => {
+    console.log('设备连接状态变化', res);
+    if (res.connected) {
+        // 设备连接成功后，获取服务和特征值
+        setTimeout(() => {
+			getServices();
+		}, 1000)
+		setTimeout(() => {
+			getCharacteristics();
+		}, 1000)
+		setTimeout(() => {
+			receiveDataFromBLE();
+		},2000)
+	
+    } else {
+        // 如果设备断开连接，停止接收数据
+        console.log('设备已断开');
+    }
+});
+
+
+// 【6】获取服务
+function getServices() {
+    // 如果是自动链接的话，uni.getBLEDeviceServices方法建议使用setTimeout延迟1秒后再执行
+    uni.getBLEDeviceServices({
+        deviceId: deviceId.value,
+        success(res) {
+			console.log('设备ID:', deviceId);
+            console.log(res) // 可以在res里判断有没有硬件佬给你的服务
+        },
+        fail(err) {
+            console.error(err)
+            uni.showToast({
+                title: '获取服务失败',
+                icon: 'error'
+            })
+        }
+    })
+}
+
+// 【7】获取特征值
+function getCharacteristics() {
+    // 如果是自动链接的话，uni.getBLEDeviceCharacteristics方法建议使用setTimeout延迟1秒后再执行
+    uni.getBLEDeviceCharacteristics({
+        deviceId: deviceId.value,
+        serviceId: serviceId.value,
+        success(res) {
+            console.log(res) // 可以在此判断特征值是否支持读写等操作，特征值其实也需要提前向硬件佬索取的
+        },
+        fail(err) {
+            console.error(err)
+            uni.showToast({
+                title: '获取特征值失败',
+                icon: 'error'
+            })
+        }
+    })
+}
+
+// 接收数据
+function receiveDataFromBLE() {
+  // 开启消息监听
+  uni.notifyBLECharacteristicValueChange({
+    deviceId: deviceId.value, // 设备ID
+    serviceId: serviceId.value, // 服务ID
+    characteristicId: characteristicId_TX.value, // 接收通道的特征值
+	state: true, // 设置为true表示开启监听
+    success(res) {
+      console.log('已开启监听', res)
+	  setTimeout(() =>{
+		  listenValueChange() // 监听消息变化
+	  }, 50)
+      
+    },
+    fail(err) {
+      console.error(err)
+    }
+  })
+}
+
+
+// 监听消息变化
+function listenValueChange() {
+  uni.onBLECharacteristicValueChange(res => {
+    console.log('接收到的BLE数据：', res)
+    let resHex = ab2hex(res.value) // 十六进制转换
+    console.log('接收到的十六进制数据：', resHex)
+    
+    // 解包数据并打印
+    let result = hexCharCodeToStr(resHex) // 十六进制转字符串
+    console.log('接收到的字符串数据：', result)
+    
+    // 假设数据格式是 [mode:auto,tempreature:26,speed:50]
+    const data = parseReceivedData(result) // 解析数据
+    console.log('解包后的数据：', data)
+    temperatureData.value.series[0].data = data.temperature // 更新温度图表数据
+    speedData.value.series[0].data = data.speed // 更新转速图表数据
+    gaugeData.value.series[0].data = data.speed / 100 // 更新转速表数据
+    gaugeOpts.value.title.name = `${data.speed} RPM` // 更新转速文本
+  })
+}
+
+
+// 解析接收到的数据，假设数据格式为[mode:auto,tempreature:26,speed:50]
+function parseReceivedData(data) {
+  const regex = /mode:(\w+),temperature:(\d+),speed:(\d+)/;
+  const match = data.match(regex);
+  if (match) {
+    return {
+      mode: match[1], // 自动/手动模式
+      temperature: parseInt(match[2]), // 温度
+      speed: parseInt(match[3]) // 转速
+    }
+  } else {
+    console.error('无法解析接收到的数据');
+  }
+}
+/**************************
+	BLE数据发送与组包
+**************************/
+// 发送数据
+function sendDataToBLE(message) {
+  console.log('发送数据：', message);
+  
+  const buffer = stringToBuffer(message); // 将消息转为ArrayBuffer
+  
+  uni.writeBLECharacteristicValue({
+    deviceId: deviceId.value,
+    serviceId: serviceId.value,
+    characteristicId: characteristicId_RX.value, // 发送通道的特征值
+    value: buffer, // 传递转换后的Buffer
+    success(res) {
+      console.log('发送数据成功', res.errMsg)
+    },
+    fail(err) {
+      console.log("发送数据失败", err.errMsg)
+    }
+  })
+}
+
+
+// 组包，发送数据格式 [mode:man,speed:50]
+function sendModeAndSpeedData() {
+  const mode = isManualMode.value ? 'man' : 'auto';
+  const message = `[mode:${mode},speed:${speedSetting.value}]`; // 构建消息
+  sendDataToBLE(message); // 发送消息
+}
 
 
 
 /**************************
-	BLE数据收发
+	字符串转ArrayBuffer
 **************************/
+// 字符串转ArrayBuffer: uni.writeBLECharacteristicValue要求传递的数据必须是ArrayBuffer类型，
+function stringToBuffer(str) {
+  const buffer = new ArrayBuffer(str.length);
+  const dataView = new DataView(buffer);
+  for (let i = 0; i < str.length; i++) {
+    dataView.setUint8(i, str.charAt(i).charCodeAt());
+  }
+  return buffer;
+}
+
+
+/**************************
+	ArrayBuffer转字符串
+**************************/
+// ArrayBuffer转16进度字符串示例
+function ab2hex(buffer) {
+  const hexArr = Array.prototype.map.call(
+    new Uint8Array(buffer),
+    function (bit) {
+      return ('00' + bit.toString(16)).slice(-2)
+    }
+  )
+  return hexArr.join('')
+}
+
+// 将16进制的内容转成我们看得懂的字符串内容
+function hexCharCodeToStr(hexCharCodeStr) {
+    var trimedStr = hexCharCodeStr.trim();
+    var rawStr = trimedStr.substr(0, 2).toLowerCase() === "0x" ? trimedStr.substr(2) : trimedStr;
+    var len = rawStr.length;
+    if (len % 2 !== 0) {
+            alert("存在非法字符!");
+            return "";
+    }
+    var curCharCode;
+    var resultStr = [];
+    for (var i = 0; i < len; i = i + 2) {
+            curCharCode = parseInt(rawStr.substr(i, 2), 16);
+            resultStr.push(String.fromCharCode(curCharCode));
+    }
+    return resultStr.join("");
+}
+
+
 
 </script>
 
