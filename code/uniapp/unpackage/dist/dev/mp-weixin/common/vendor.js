@@ -7660,12 +7660,6 @@ const pages = [
     style: {
       navigationBarTitleText: ""
     }
-  },
-  {
-    path: "pages/test/test",
-    style: {
-      navigationBarTitleText: ""
-    }
   }
 ];
 const globalStyle = {

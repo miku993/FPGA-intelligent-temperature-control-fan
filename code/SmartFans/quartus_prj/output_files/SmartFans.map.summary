@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Sat Jan 04 22:21:44 2025
+Quartus II 64-Bit Version : 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version
+Revision Name : SmartFans
+Top-level Entity Name : SmartFans
+Family : Cyclone IV E
+Total logic elements : 2,160
+    Total combinational functions : 2,077
+    Dedicated logic registers : 271
+Total registers : 271
+Total pins : 7
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

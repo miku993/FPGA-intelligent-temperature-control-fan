@@ -1,0 +1,77 @@
+------------------------------------------------------------
+TimeQuest Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'sys_clk'
+Slack : -127.432
+TNS   : -2276.897
+
+Type  : Slow 1200mV 85C Model Setup 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : -4.795
+TNS   : -239.643
+
+Type  : Slow 1200mV 85C Model Hold 'sys_clk'
+Slack : -0.091
+TNS   : -0.091
+
+Type  : Slow 1200mV 85C Model Hold 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : 0.434
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'sys_clk'
+Slack : -3.000
+TNS   : -316.757
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : -1.487
+TNS   : -89.220
+
+Type  : Slow 1200mV 0C Model Setup 'sys_clk'
+Slack : -115.736
+TNS   : -2073.332
+
+Type  : Slow 1200mV 0C Model Setup 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : -4.459
+TNS   : -222.122
+
+Type  : Slow 1200mV 0C Model Hold 'sys_clk'
+Slack : -0.053
+TNS   : -0.053
+
+Type  : Slow 1200mV 0C Model Hold 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : 0.384
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'sys_clk'
+Slack : -3.000
+TNS   : -316.757
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : -1.487
+TNS   : -89.220
+
+Type  : Fast 1200mV 0C Model Setup 'sys_clk'
+Slack : -55.152
+TNS   : -876.618
+
+Type  : Fast 1200mV 0C Model Setup 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : -1.437
+TNS   : -67.732
+
+Type  : Fast 1200mV 0C Model Hold 'sys_clk'
+Slack : -0.204
+TNS   : -0.204
+
+Type  : Fast 1200mV 0C Model Hold 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : 0.179
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'sys_clk'
+Slack : -3.000
+TNS   : -227.875
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
+Slack : -1.000
+TNS   : -60.000
+
+------------------------------------------------------------

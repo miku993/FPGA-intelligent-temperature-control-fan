@@ -12,13 +12,6 @@
 			{
 				"navigationBarTitleText" : ""
 			}
-		},
-		{
-			"path" : "pages/test/test",
-			"style" : 
-			{
-				"navigationBarTitleText" : ""
-			}
 		}
 	],
 	"globalStyle": {

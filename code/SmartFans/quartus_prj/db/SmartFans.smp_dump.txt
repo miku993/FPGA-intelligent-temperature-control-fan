@@ -1,0 +1,15 @@
+
+State Machine - |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|state
+Name state.S_RD_TEMP state.S_RD_CMD state.S_INIT_AGAIN state.S_WAIT state.S_WR_CMD state.S_INIT 
+state.S_INIT 0 0 0 0 0 0 
+state.S_WR_CMD 0 0 0 0 1 1 
+state.S_WAIT 0 0 0 1 0 1 
+state.S_INIT_AGAIN 0 0 1 0 0 1 
+state.S_RD_CMD 0 1 0 0 0 1 
+state.S_RD_TEMP 1 0 0 0 0 1 
+
+State Machine - |SmartFans|uart_tx:ut_uart_tx|state
+Name state.START state.WAIT_1s state.SEND_BYTE 
+state.START 0 0 0 
+state.SEND_BYTE 1 0 1 
+state.WAIT_1s 1 1 0 

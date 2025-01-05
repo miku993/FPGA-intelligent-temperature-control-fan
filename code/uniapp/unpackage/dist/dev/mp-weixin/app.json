@@ -1,8 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/BLE/BLE",
-    "pages/test/test"
+    "pages/BLE/BLE"
   ],
   "window": {
     "navigationBarTextStyle": "black",

@@ -1,0 +1,54 @@
+module SmartFans (
+    input wire sys_clk,             // 系统时钟 50MHz
+    input wire sys_rst_n,           // 系统复位信号，低电平有效
+    input wire fg_signal,           // 风扇频率生成器信号 (V_FG)
+    inout wire dq,                  // DS18B20 数据总线
+
+    output wire tx
+);
+
+    // 中间信号
+    wire [7:0] temp_data;           // 温度数据 (DS18B20 输出)
+    wire [15:0] rpm;                // 转速数据 (风扇转速采集输出)
+    wire [7:0] pi_data;      // 串口输出数据
+    wire pi_data_flag ;       // 串口数据发送标志
+    
+    // DS18B20 温度控制模块实例化
+    ds18b20_ctrl u_ds18b20_ctrl (
+        .sys_clk(sys_clk),
+        .sys_rst_n(sys_rst_n),
+        .dq(dq),
+
+        .temp_data(temp_data)
+    );
+
+    // 风扇转速采集模块实例化
+    speed_acq u_speed_acq (
+        .sys_clk(sys_clk),
+        .sys_rst_n(sys_rst_n),
+        .fg_signal(fg_signal),
+
+        .rpm(rpm)
+    );
+
+    // 数据打包模块实例化
+    pack u_pack (
+        .sys_clk(sys_clk),
+        .sys_rst_n(sys_rst_n),
+        .temp_data(temp_data),
+        .rpm(rpm),
+
+        .pi_data(pi_data),
+        .pi_data_flag(pi_data_flag)
+    );
+
+    uart_tx u_uart_tx (
+        .sys_clk(sys_clk),
+        .sys_rst_n(sys_rst_n),
+        .pi_data(pi_data),
+        .pi_data_flag(pi_data_flag),
+        
+        .tx(tx)
+    );
+
+endmodule

@@ -22,8 +22,8 @@
       <view class="chart-item">
         <qiun-data-charts
           type="gauge"
-          :opts="gaugeOpts"
-          :chartData="gaugeData"
+          :opts="speedOpts"
+          :chartData="speedData"
           canvasId="gaugeChart"
           :canvas2d="true"
         />
@@ -31,14 +31,14 @@
     </view>
 
     <view class="data-display">
-      <view class="data-item" :style="modeStyle">
+      <view class="data-item" >
         <text class="data-label">当前模式</text>
-        <text class="data-value">{{ isManualMode ? '手动' : '自动' }}</text>
+        <text class="data-value" :style="modeStyle">{{ isManualMode ? '手动' : '自动' }}</text>
       </view>
       <view class="divider"></view>
-      <view class="data-item" :style="speedStyle">
-        <text class="data-label">当前转速</text>
-        <text class="data-value">{{ speedSetting }} RPM</text>
+      <view class="data-item" >
+        <text class="data-label">设置转速</text>
+        <text class="data-value" :style="speedStyle">{{ speedSetting }} RPM</text>
       </view>
     </view>
 
@@ -50,69 +50,114 @@
 
     <view v-if="isManualMode" class="slider-container">
       <view class="slider-label">
-        <text>min：0 RPM</text>
-        <text>max：100 RPM</text>
+        <text>min：500 RPM</text>
+        <text>max：3800 RPM</text>
       </view>
       <slider
         :value="speedSetting"
-        :min="0"
-        :max="100"
+        :min="500"
+        :max="3800"
         @change="handleSliderChange"
       ></slider>
-      <view class="slider-value">当前设定转速：{{ speedSetting }} RPM</view>
     </view>
+	
   </view>
 </template>
 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 
-const speedSetting = ref(50); // 当前设定转速
-const isManualMode = ref(true); // 是否手动模式
-const deviceId = ref('87686B4D-2537-0287-7904-FDDBA2939AA6'); // 设备 ID
+const speedSetting = ref(0); // 当前设定转速
+const isManualMode = ref(false); // 是否手动模式
+const deviceId = ref('F80556A6-DA8B-E3BD-48A5-6EFA71CD9FA7'); // 设备 ID
 const serviceId = ref('0000ABC0-0000-1000-8000-00805F9B34FB');
 const characteristicId_RX = ref('0000ABC1-0000-1000-8000-00805F9B34FB'); // 接收通道
 const characteristicId_TX = ref('0000ABC2-0000-1000-8000-00805F9B34FB'); // 发送通道
 // 监听到的内容
 const message = ref('')
 const messageHex = ref('') // 十六进制
-
+// 接收数据的ref响应式数据
+const getSpeed = ref('');
+const getTemperatrue = ref('');
+const receivedData = ref({ temperature: 0, speed: 0 });
 
 /**************************
 	uchart动态数据表
 **************************/
 // 原始图表数据
-const temperatureData = ref({ series: [{ name: '温度', data: 0.8 }] });
-const gaugeData = ref({
-  categories: [
-    { value: 0.3, color: "#0000FF" }, // 蓝色：低速
-    { value: 0.7, color: "#FFFF00" }, // 黄色：中速
-    { value: 1.0, color: "#FF0000" }  // 红色：高速
-  ],
-  series: [
-    { name: "转速", data: 0.66 } // 转速值归一化
-  ]
+// 原始图表数据
+const temperatureData = ref({
+  series: [{ name: "温度", data: 0.0 }]
+});
+const speedData = ref({
+  series: [{ name: "转速", data: 0.0 }],
+  categories: [{ color: "#0000FF" }]
 });
 
-const speedData = ref({ series: [{ name: '转速', data: 66 }] });
 
 const temperatureOpts = ref({
-  title: { name: "26°C", fontSize: 30, color: "#39b54a" },
-  subtitle: { name: "实时温度", fontSize: 15, color: "#8799a3" },
-  extra: { arcbar: { width: 12, startAngle: 0.75, endAngle: 0.25, customColor: ["#fbbd08", "#e54d42"] } },
+  update: true, 
+  dataLabel:false,
+  animation: true, // 关闭动画
+  duration: true, // 动画过度
+  title: {
+    name: "0°C", // 主标题
+    fontSize: 30,
+    color: "#39b54a",
+    offsetX: 0,
+    offsetY: 0
+  },
+  subtitle: {
+    name: "实时温度", // 副标题
+    fontSize: 15,
+    color: "#8799a3",
+    offsetX: 0,
+    offsetY: 0
+  },
+  extra: {
+    arcbar: {
+      type: "default",
+      width: 12,
+      backgroundColor: "#E9E9E9",
+      startAngle: 0.75,
+      endAngle: 0.25,
+      gap: 2,
+      direction: "cw",
+      lineCap: "round",
+      centerX: 0,
+      centerY: 0,
+      linearType: "none"
+    }
+  }
 });
 
-const gaugeOpts = ref({
-  title: { name: "66 RPM", fontSize: 27, color: "#8dc63f" },
-  subtitle: { name: "实时转速", fontSize: 15, color: "#8799a3" },
+const speedOpts = ref({
+  update: true,
+  dataLabel:false,
+  duration: true, // 动画过度
+  animation: true, // 关闭动画
+  title: {
+    name: "0 RPM", // 主标题
+    fontSize: 26,
+    color: "#39b54a",
+    offsetY: 0,
+    offsetX: 0
+  },
+  subtitle: {
+    name: "实时转速", // 副标题
+    fontSize: 15,
+    color: "#8799a3",
+    offsetY: 0,
+    offsetX: 0
+  },
   extra: {
     gauge: {
       type: "progress",
       width: 15,
       startAngle: 0.75, // 起始角度
       endAngle: 0.25,   // 结束角度
-      startNumber: 0,   // 起始刻度值
-      endNumber: 100,   // 结束刻度值
+      startNumber: 500,   // 起始刻度值
+      endNumber: 3800,   // 结束刻度值
       splitLine: {
         fixRadius: 0,
         splitNumber: 10, // 大刻度数量
@@ -122,60 +167,61 @@ const gaugeOpts = ref({
         childWidth: 7
       },
       pointer: {
-        width: 5,   // 指针宽度
+        width: 20,   // 指针宽度
         color: "auto" // 自动匹配颜色
       },
-      customColor: [
-        { position: 0.3, color: "#0000FF" }, // 蓝色：低速
-        { position: 0.7, color: "#FFFF00" }, // 黄色：中速
-        { position: 1.0, color: "#FF0000" }  // 红色：高速
-      ],
       labelOffset: 10
     }
   }
 });
 
 
+// updateChartData 方法
+function updateChartData(data) {
+    // 更新图表数据属性
+    temperatureData.value.series[0].data = data.temperature / 125;
+    speedData.value.series[0].data = (data.speed - 500) / 3300;
+
+    // 更新图表标题
+    temperatureOpts.value.title.name = `${data.temperature}°C`;
+    speedOpts.value.title.name = `${data.speed} RPM`;
+
+    console.log('图表数据已更新', temperatureData.value.series[0].data, speedData.value.series[0].data);
+}
+
+
+
 /**************************
 	界面逻辑
 **************************/
+
+
+// 切换模式并发送数据
+function toggleMode() {
+  isManualMode.value = !isManualMode.value;
+  const mode = isManualMode.value ? "man" : "auto";
+  sendDataToBLE(`{"mode":${mode},"speed":50}`); // 发送数据
+}
+
 // 动态样式：当前模式
 const modeStyle = computed(() => {
   return {
-    color: isManualMode.value ? '#D84315' : '#00838F', // 手动时醒目，自动时蓝色
+    color: isManualMode.value ? '#d81855' : '#070606', // 手动时醒目，自动时蓝色
   };
 });
 
 // 动态样式：当前转速
 const speedStyle = computed(() => {
   return {
-    color: isManualMode.value ? '#FF5722' : '#BDBDBD', // 手动时橙红，自动时灰色
+    color: isManualMode.value ? '#d81855' : '#070606', // 手动时橙红，自动时灰色
   };
 });
 
-// 滑动条改变时触发
+// 滑动条改变时触发（测得最大与最小的RPM还得写相应的算法）
 function handleSliderChange(event) {
-  speedSetting.value = event.detail.value;
-  speedData.value.series[0].data = speedSetting.value;
-  gaugeData.value.series[0].data = speedSetting.value / 100;
-  gaugeOpts.value.title.name = `${speedSetting.value} RPM`;
-  sendDataToBLE(`[mode:man,speed:${speedSetting.value}]`);
+    speedSetting.value = event.detail.value;
+    sendDataToBLE(`{mode:"man",speed:${speedSetting.value}}`);		//发送的数据
 }
-
-// 切换模式并发送数据
-function toggleMode() {
-  isManualMode.value = !isManualMode.value;
-  const mode = isManualMode.value ? 'man' : 'auto';
-  sendDataToBLE(`[mode:${mode},speed:50]`); // 发送数据
-}
-
-// 界面跳转，接收device值
-const onLoad = (options) => {
-  console.log('主页加载完成，接收到的参数：', options);
-  deviceId.value = options.deviceId;
-  console.log('接收到的 deviceId:', deviceId.value);
-};
-
 
 /**************************
 	BLE数据接收与解包
@@ -196,6 +242,7 @@ uni.onBLEConnectionStateChange((res) => {
 		setTimeout(() => {
 			receiveDataFromBLE();
 		},2000)
+		
 	
     } else {
         // 如果设备断开连接，停止接收数据
@@ -246,16 +293,14 @@ function getCharacteristics() {
 function receiveDataFromBLE() {
   // 开启消息监听
   uni.notifyBLECharacteristicValueChange({
+	state: true, // 设置为true表示开启监听 
     deviceId: deviceId.value, // 设备ID
     serviceId: serviceId.value, // 服务ID
     characteristicId: characteristicId_TX.value, // 接收通道的特征值
-	state: true, // 设置为true表示开启监听
+	
     success(res) {
       console.log('已开启监听', res)
-	  setTimeout(() =>{
-		  listenValueChange() // 监听消息变化
-	  }, 50)
-      
+	  listenValueChange() // 监听消息变化
     },
     fail(err) {
       console.error(err)
@@ -267,39 +312,32 @@ function receiveDataFromBLE() {
 // 监听消息变化
 function listenValueChange() {
   uni.onBLECharacteristicValueChange(res => {
-    console.log('接收到的BLE数据：', res)
-    let resHex = ab2hex(res.value) // 十六进制转换
-    console.log('接收到的十六进制数据：', resHex)
-    
+    console.log('接收到的BLE数据：', res);
+
+    let resHex = ab2hex(res.value); // 十六进制转换
+    console.log('接收到的十六进制数据：', resHex);
+
     // 解包数据并打印
-    let result = hexCharCodeToStr(resHex) // 十六进制转字符串
-    console.log('接收到的字符串数据：', result)
-    
-    // 假设数据格式是 [mode:auto,tempreature:26,speed:50]
-    const data = parseReceivedData(result) // 解析数据
-    console.log('解包后的数据：', data)
-    temperatureData.value.series[0].data = data.temperature // 更新温度图表数据
-    speedData.value.series[0].data = data.speed // 更新转速图表数据
-    gaugeData.value.series[0].data = data.speed / 100 // 更新转速表数据
-    gaugeOpts.value.title.name = `${data.speed} RPM` // 更新转速文本
+    let result = hexCharCodeToStr(resHex); // 十六进制转字符串
+    console.log('接收到的字符串数据：', result);
+
+    // 直接解析为JSON对象
+	try {
+	    const newData = JSON.parse(result);  // 直接解析接收到的字符串为 JSON
+	    console.log('解包后的数据：', newData);
+	    console.log('Temperature:', newData.temperature);
+	    console.log('Speed:', newData.speed);	
+	            
+	    // 更新 receivedData
+	    receivedData.value = newData;
+		updateChartData(receivedData.value);
+	}
+	catch (error) {
+		console.error('解析JSON数据失败:', error);
+    }
   })
 }
 
-
-// 解析接收到的数据，假设数据格式为[mode:auto,tempreature:26,speed:50]
-function parseReceivedData(data) {
-  const regex = /mode:(\w+),temperature:(\d+),speed:(\d+)/;
-  const match = data.match(regex);
-  if (match) {
-    return {
-      mode: match[1], // 自动/手动模式
-      temperature: parseInt(match[2]), // 温度
-      speed: parseInt(match[3]) // 转速
-    }
-  } else {
-    console.error('无法解析接收到的数据');
-  }
-}
 /**************************
 	BLE数据发送与组包
 **************************/
@@ -326,8 +364,8 @@ function sendDataToBLE(message) {
 
 // 组包，发送数据格式 [mode:man,speed:50]
 function sendModeAndSpeedData() {
-  const mode = isManualMode.value ? 'man' : 'auto';
-  const message = `[mode:${mode},speed:${speedSetting.value}]`; // 构建消息
+  const mode = isManualMode.value ? "man" : "auto";
+  const message = `{"mode":${mode},"speed":${speedSetting.value}}`; // 构建消息
   sendDataToBLE(message); // 发送消息
 }
 
@@ -378,6 +416,7 @@ function hexCharCodeToStr(hexCharCodeStr) {
     }
     return resultStr.join("");
 }
+
 
 
 

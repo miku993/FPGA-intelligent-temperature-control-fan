@@ -90,9 +90,9 @@ function connect(data) {
                 console.log('连接成功', res);
                 stopDiscovery();  // 停止设备搜索
                 // 使用 uni.navigateTo 进行页面跳转，传递设备ID
-                uni.reLaunch({
-                  url: `/pages/index/index?deviceId=${deviceId.value}`
-                });
+                // uni.reLaunch({
+                //   url: `/pages/index/index?deviceId=${deviceId.value}`
+                // });
 
                 uni.showToast({
                     title: '连接成功'

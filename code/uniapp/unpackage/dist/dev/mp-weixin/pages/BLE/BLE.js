@@ -55,9 +55,6 @@ const _sfc_main = {
           success(res) {
             console.log("连接成功", res);
             stopDiscovery();
-            common_vendor.index.reLaunch({
-              url: `/pages/index/index?deviceId=${deviceId.value}`
-            });
             common_vendor.index.showToast({
               title: "连接成功"
             });
