@@ -2,76 +2,64 @@
 TimeQuest Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'sys_clk'
-Slack : -127.432
-TNS   : -2276.897
-
-Type  : Slow 1200mV 85C Model Setup 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : -4.795
-TNS   : -239.643
-
-Type  : Slow 1200mV 85C Model Hold 'sys_clk'
-Slack : -0.091
-TNS   : -0.091
-
-Type  : Slow 1200mV 85C Model Hold 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : 0.434
+Type  : Slow 1200mV 85C Model Setup 'altera_reserved_tck'
+Slack : 43.077
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'sys_clk'
-Slack : -3.000
-TNS   : -316.757
-
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : -1.487
-TNS   : -89.220
-
-Type  : Slow 1200mV 0C Model Setup 'sys_clk'
-Slack : -115.736
-TNS   : -2073.332
-
-Type  : Slow 1200mV 0C Model Setup 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : -4.459
-TNS   : -222.122
-
-Type  : Slow 1200mV 0C Model Hold 'sys_clk'
-Slack : -0.053
-TNS   : -0.053
-
-Type  : Slow 1200mV 0C Model Hold 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : 0.384
+Type  : Slow 1200mV 85C Model Hold 'altera_reserved_tck'
+Slack : 0.453
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'sys_clk'
-Slack : -3.000
-TNS   : -316.757
-
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : -1.487
-TNS   : -89.220
-
-Type  : Fast 1200mV 0C Model Setup 'sys_clk'
-Slack : -55.152
-TNS   : -876.618
-
-Type  : Fast 1200mV 0C Model Setup 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : -1.437
-TNS   : -67.732
-
-Type  : Fast 1200mV 0C Model Hold 'sys_clk'
-Slack : -0.204
-TNS   : -0.204
-
-Type  : Fast 1200mV 0C Model Hold 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : 0.179
+Type  : Slow 1200mV 85C Model Recovery 'altera_reserved_tck'
+Slack : 48.229
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'sys_clk'
-Slack : -3.000
-TNS   : -227.875
+Type  : Slow 1200mV 85C Model Removal 'altera_reserved_tck'
+Slack : 1.545
+TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'ds18b20_ctrl:ut_ds18b20_ctrl|clk_1us'
-Slack : -1.000
-TNS   : -60.000
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'altera_reserved_tck'
+Slack : 49.455
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Setup 'altera_reserved_tck'
+Slack : 43.669
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'altera_reserved_tck'
+Slack : 0.402
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'altera_reserved_tck'
+Slack : 48.496
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'altera_reserved_tck'
+Slack : 1.388
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'altera_reserved_tck'
+Slack : 49.303
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Setup 'altera_reserved_tck'
+Slack : 47.209
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'altera_reserved_tck'
+Slack : 0.187
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'altera_reserved_tck'
+Slack : 49.401
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'altera_reserved_tck'
+Slack : 0.652
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'altera_reserved_tck'
+Slack : 49.451
+TNS   : 0.000
 
 ------------------------------------------------------------

@@ -28,13 +28,13 @@ reg [2:0]   state       ;   //状态机状态
 reg [19:0]  cnt_1us     ;   //微秒计数器
 reg [3:0]   bit_cnt     ;   //字节计数器
 reg [15:0]  data_tmp    ;   //读取ds18b20的温度
-reg [10:0]  data        ;   //判断完正负后的温度
+reg [19:0]  data        ;   //判断完正负后的温度
 reg         flag_pulse  ;   //初始化存在脉冲标志信号
 reg         dq_out      ;   //输出总线数据，即FPGA给的总线数据值
 reg         dq_en       ;   //输出总线数据使能信号
 
 //温度转换,保留整数
-assign temp_data = (data * 10'd625)/ 14'd1000;
+assign temp_data = (data * 10'd625)/ 14'd10000;
 
 //FPGA总线控制: 当使能信号为1是总线的值为dq_out的值，为0时为高阻态
 assign  dq  =   (dq_en ==1 ) ? dq_out : 1'bz;
@@ -247,7 +247,7 @@ always@(posedge clk_1us or  negedge sys_rst_n)
 //温度判断，输出温度
 always@(posedge clk_1us or  negedge sys_rst_n)
     if(sys_rst_n == 1'b0)
-        data    <=  16'b0;
+        data    <=  20'b0;
     else    if(data_tmp[15] == 1'b0 && state == S_RD_TEMP &&
                             cnt_1us == 20'd60 && bit_cnt == 4'd15)
         data    <=  data_tmp[10:0];     // 数据位为[10:0]

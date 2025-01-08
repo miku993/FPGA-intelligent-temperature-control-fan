@@ -1,5 +1,5 @@
 Analysis & Synthesis report for SmartFans
-Sat Jan 04 22:21:44 2025
+Tue Jan 07 17:58:46 2025
 Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
 
 
@@ -11,29 +11,30 @@ Quartus II 64-Bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Ver
   3. Analysis & Synthesis Settings
   4. Parallel Compilation
   5. Analysis & Synthesis Source Files Read
-  6. Analysis & Synthesis Resource Usage Summary
-  7. Analysis & Synthesis Resource Utilization by Entity
-  8. State Machine - |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|state
-  9. State Machine - |SmartFans|uart_tx:ut_uart_tx|state
- 10. Registers Removed During Synthesis
- 11. General Register Statistics
- 12. Inverted Register Statistics
- 13. Multiplexer Restructuring Statistics (Restructuring Performed)
- 14. Parameter Settings for User Entity Instance: logic_ctrl:ut_logic_ctrl
- 15. Parameter Settings for User Entity Instance: uart_rx:ut_uart_rx
- 16. Parameter Settings for User Entity Instance: uart_tx:ut_uart_tx
- 17. Parameter Settings for User Entity Instance: speed_acq:ut_speed_acq
- 18. Parameter Settings for User Entity Instance: ds18b20_ctrl:ut_ds18b20_ctrl
- 19. Parameter Settings for Inferred Entity Instance: ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0
- 20. Parameter Settings for Inferred Entity Instance: ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0
- 21. Parameter Settings for Inferred Entity Instance: pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0
- 22. Parameter Settings for Inferred Entity Instance: pwm_ctrl:ut_pwm_ctrl|lpm_divide:Div0
- 23. Parameter Settings for Inferred Entity Instance: speed_acq:ut_speed_acq|lpm_divide:Div0
- 24. Parameter Settings for Inferred Entity Instance: logic_ctrl:ut_logic_ctrl|lpm_divide:Div0
- 25. Parameter Settings for Inferred Entity Instance: logic_ctrl:ut_logic_ctrl|lpm_divide:Div1
- 26. lpm_mult Parameter Settings by Entity Instance
- 27. Elapsed Time Per Partition
- 28. Analysis & Synthesis Messages
+  6. Partition Status Summary
+  7. Dependent File Changes for Partition Top
+  8. Partition for Top-Level Resource Utilization by Entity
+  9. State Machine - |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|state
+ 10. State Machine - |SmartFans|uart_tx:ut_uart_tx|state
+ 11. Registers Removed During Synthesis
+ 12. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 13. Parameter Settings for User Entity Instance: logic_ctrl:ut_logic_ctrl
+ 14. Parameter Settings for User Entity Instance: uart_rx:ut_uart_rx
+ 15. Parameter Settings for User Entity Instance: uart_tx:ut_uart_tx
+ 16. Parameter Settings for User Entity Instance: speed_acq:ut_speed_acq
+ 17. Parameter Settings for User Entity Instance: ds18b20_ctrl:ut_ds18b20_ctrl
+ 18. Parameter Settings for Inferred Entity Instance: ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0
+ 19. Parameter Settings for Inferred Entity Instance: ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0
+ 20. Parameter Settings for Inferred Entity Instance: pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0
+ 21. Parameter Settings for Inferred Entity Instance: pwm_ctrl:ut_pwm_ctrl|lpm_divide:Div0
+ 22. Parameter Settings for Inferred Entity Instance: speed_acq:ut_speed_acq|lpm_divide:Div0
+ 23. Parameter Settings for Inferred Entity Instance: logic_ctrl:ut_logic_ctrl|lpm_divide:Div0
+ 24. Parameter Settings for Inferred Entity Instance: logic_ctrl:ut_logic_ctrl|lpm_divide:Div1
+ 25. Partition Dependent Files
+ 26. Parameter Settings for Inferred Entity Instance: sld_signaltap:auto_signaltap_0
+ 27. SignalTap II Logic Analyzer Settings
+ 28. Elapsed Time Per Partition
+ 29. Analysis & Synthesis Messages
 
 
 
@@ -59,20 +60,20 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                          ;
 +------------------------------------+--------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Sat Jan 04 22:21:44 2025            ;
+; Analysis & Synthesis Status        ; Successful - Tue Jan 07 17:58:46 2025            ;
 ; Quartus II 64-Bit Version          ; 13.0.1 Build 232 06/12/2013 SP 1 SJ Full Version ;
 ; Revision Name                      ; SmartFans                                        ;
 ; Top-level Entity Name              ; SmartFans                                        ;
 ; Family                             ; Cyclone IV E                                     ;
-; Total logic elements               ; 2,160                                            ;
-;     Total combinational functions  ; 2,077                                            ;
-;     Dedicated logic registers      ; 271                                              ;
-; Total registers                    ; 271                                              ;
-; Total pins                         ; 7                                                ;
-; Total virtual pins                 ; 0                                                ;
-; Total memory bits                  ; 0                                                ;
-; Embedded Multiplier 9-bit elements ; 0                                                ;
-; Total PLLs                         ; 0                                                ;
+; Total logic elements               ; N/A until Partition Merge                        ;
+;     Total combinational functions  ; N/A until Partition Merge                        ;
+;     Dedicated logic registers      ; N/A until Partition Merge                        ;
+; Total registers                    ; N/A until Partition Merge                        ;
+; Total pins                         ; N/A until Partition Merge                        ;
+; Total virtual pins                 ; N/A until Partition Merge                        ;
+; Total memory bits                  ; N/A until Partition Merge                        ;
+; Embedded Multiplier 9-bit elements ; N/A until Partition Merge                        ;
+; Total PLLs                         ; N/A until Partition Merge                        ;
 +------------------------------------+--------------------------------------------------+
 
 
@@ -171,13 +172,13 @@ applicable agreement for further details.
 ; Number detected on machine ; 20          ;
 ; Maximum allowed            ; 14          ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 5           ;
+; Average used               ; 2.50        ;
+; Maximum used               ; 3           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-5         ; < 0.1%      ;
-;     Processors 6-20        ;   0.0%      ;
+;     Processors 2-3         ;  75.0%      ;
+;     Processors 4-20        ;   0.0%      ;
 +----------------------------+-------------+
 
 
@@ -193,103 +194,95 @@ applicable agreement for further details.
 ; ../rtl/SmartFans.v               ; yes             ; User Verilog HDL File        ; D:/Project/QuartusPrj/school/SmartFans/rtl/SmartFans.v                        ;         ;
 ; ../rtl/pwm_ctrl.v                ; yes             ; User Verilog HDL File        ; D:/Project/QuartusPrj/school/SmartFans/rtl/pwm_ctrl.v                         ;         ;
 ; ../rtl/logic_ctrl.v              ; yes             ; User Verilog HDL File        ; D:/Project/QuartusPrj/school/SmartFans/rtl/logic_ctrl.v                       ;         ;
-; lpm_mult.tdf                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_mult.tdf                 ;         ;
+; sld_signaltap.vhd                ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_signaltap.vhd            ;         ;
+; sld_signaltap_impl.vhd           ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_signaltap_impl.vhd       ;         ;
+; sld_ela_control.vhd              ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_ela_control.vhd          ;         ;
+; lpm_shiftreg.tdf                 ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_shiftreg.tdf             ;         ;
+; lpm_constant.inc                 ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_constant.inc             ;         ;
+; dffeea.inc                       ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/dffeea.inc                   ;         ;
 ; aglobal130.inc                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/aglobal130.inc               ;         ;
-; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_add_sub.inc              ;         ;
-; multcore.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/multcore.inc                 ;         ;
+; sld_mbpmg.vhd                    ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_mbpmg.vhd                ;         ;
+; sld_ela_trigger_flow_mgr.vhd     ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_ela_trigger_flow_mgr.vhd ;         ;
+; sld_buffer_manager.vhd           ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_buffer_manager.vhd       ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altsyncram.tdf               ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/stratix_ram_block.inc        ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_mux.inc                  ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_decode.inc               ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/a_rdenreg.inc                ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altrom.inc                   ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altram.inc                   ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altdpram.inc                 ;         ;
+; db/altsyncram_ot14.tdf           ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/altsyncram_ot14.tdf     ;         ;
+; altdpram.tdf                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altdpram.tdf                 ;         ;
+; memmodes.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/others/maxplus2/memmodes.inc               ;         ;
+; a_hdffe.inc                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/a_hdffe.inc                  ;         ;
+; alt_le_rden_reg.inc              ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/alt_le_rden_reg.inc          ;         ;
+; altsyncram.inc                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altsyncram.inc               ;         ;
+; lpm_mux.tdf                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_mux.tdf                  ;         ;
+; muxlut.inc                       ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/muxlut.inc                   ;         ;
 ; bypassff.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/bypassff.inc                 ;         ;
 ; altshift.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altshift.inc                 ;         ;
-; multcore.tdf                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/multcore.tdf                 ;         ;
-; csa_add.inc                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/csa_add.inc                  ;         ;
-; mpar_add.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/mpar_add.inc                 ;         ;
-; muleabz.inc                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/muleabz.inc                  ;         ;
-; mul_lfrg.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/mul_lfrg.inc                 ;         ;
-; mul_boothc.inc                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/mul_boothc.inc               ;         ;
-; alt_ded_mult.inc                 ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/alt_ded_mult.inc             ;         ;
-; alt_ded_mult_y.inc               ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/alt_ded_mult_y.inc           ;         ;
-; dffpipe.inc                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/dffpipe.inc                  ;         ;
-; mpar_add.tdf                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/mpar_add.tdf                 ;         ;
-; lpm_add_sub.tdf                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_add_sub.tdf              ;         ;
-; addcore.inc                      ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/addcore.inc                  ;         ;
-; look_add.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/look_add.inc                 ;         ;
-; alt_stratix_add_sub.inc          ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/alt_stratix_add_sub.inc      ;         ;
-; db/add_sub_ngh.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/add_sub_ngh.tdf         ;         ;
-; db/add_sub_rgh.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/add_sub_rgh.tdf         ;         ;
-; altshift.tdf                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/altshift.tdf                 ;         ;
-; lpm_divide.tdf                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_divide.tdf               ;         ;
-; abs_divider.inc                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/abs_divider.inc              ;         ;
-; sign_div_unsign.inc              ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/sign_div_unsign.inc          ;         ;
-; db/lpm_divide_dkm.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/lpm_divide_dkm.tdf      ;         ;
-; db/sign_div_unsign_5nh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/sign_div_unsign_5nh.tdf ;         ;
-; db/alt_u_div_u9f.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/alt_u_div_u9f.tdf       ;         ;
-; db/add_sub_7pc.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/add_sub_7pc.tdf         ;         ;
-; db/add_sub_8pc.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/add_sub_8pc.tdf         ;         ;
-; db/add_sub_ogh.tdf               ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/add_sub_ogh.tdf         ;         ;
-; db/lpm_divide_7jm.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/lpm_divide_7jm.tdf      ;         ;
-; db/sign_div_unsign_vlh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/sign_div_unsign_vlh.tdf ;         ;
-; db/alt_u_div_i7f.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/alt_u_div_i7f.tdf       ;         ;
-; db/lpm_divide_hkm.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/lpm_divide_hkm.tdf      ;         ;
-; db/sign_div_unsign_9nh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/sign_div_unsign_9nh.tdf ;         ;
-; db/alt_u_div_6af.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/alt_u_div_6af.tdf       ;         ;
-; db/lpm_divide_1jm.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/lpm_divide_1jm.tdf      ;         ;
-; db/sign_div_unsign_plh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/sign_div_unsign_plh.tdf ;         ;
-; db/alt_u_div_67f.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/alt_u_div_67f.tdf       ;         ;
-; db/lpm_divide_2jm.tdf            ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/lpm_divide_2jm.tdf      ;         ;
-; db/sign_div_unsign_qlh.tdf       ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/sign_div_unsign_qlh.tdf ;         ;
-; db/alt_u_div_87f.tdf             ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/alt_u_div_87f.tdf       ;         ;
+; db/mux_rsc.tdf                   ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/mux_rsc.tdf             ;         ;
+; lpm_decode.tdf                   ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_decode.tdf               ;         ;
+; declut.inc                       ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/declut.inc                   ;         ;
+; lpm_compare.inc                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_compare.inc              ;         ;
+; db/decode_dvf.tdf                ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/decode_dvf.tdf          ;         ;
+; lpm_counter.tdf                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_counter.tdf              ;         ;
+; lpm_add_sub.inc                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_add_sub.inc              ;         ;
+; cmpconst.inc                     ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/cmpconst.inc                 ;         ;
+; lpm_counter.inc                  ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/lpm_counter.inc              ;         ;
+; alt_counter_stratix.inc          ; yes             ; Megafunction                 ; d:/quartusii13.0/quartus/libraries/megafunctions/alt_counter_stratix.inc      ;         ;
+; db/cntr_g9j.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/cntr_g9j.tdf            ;         ;
+; db/cntr_egi.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/cntr_egi.tdf            ;         ;
+; db/cmpr_rgc.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/cmpr_rgc.tdf            ;         ;
+; db/cntr_23j.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/cntr_23j.tdf            ;         ;
+; db/cmpr_ngc.tdf                  ; yes             ; Auto-Generated Megafunction  ; D:/Project/QuartusPrj/school/SmartFans/quartus_prj/db/cmpr_ngc.tdf            ;         ;
+; sld_rom_sr.vhd                   ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_rom_sr.vhd               ;         ;
+; sld_hub.vhd                      ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_hub.vhd                  ;         ;
+; sld_jtag_hub.vhd                 ; yes             ; Encrypted Megafunction       ; d:/quartusii13.0/quartus/libraries/megafunctions/sld_jtag_hub.vhd             ;         ;
 +----------------------------------+-----------------+------------------------------+-------------------------------------------------------------------------------+---------+
 
 
-+---------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                   ;
-+---------------------------------------------+-----------------+
-; Resource                                    ; Usage           ;
-+---------------------------------------------+-----------------+
-; Estimated Total logic elements              ; 2,160           ;
-;                                             ;                 ;
-; Total combinational functions               ; 2077            ;
-; Logic element usage by number of LUT inputs ;                 ;
-;     -- 4 input functions                    ; 738             ;
-;     -- 3 input functions                    ; 771             ;
-;     -- <=2 input functions                  ; 568             ;
-;                                             ;                 ;
-; Logic elements by mode                      ;                 ;
-;     -- normal mode                          ; 1196            ;
-;     -- arithmetic mode                      ; 881             ;
-;                                             ;                 ;
-; Total registers                             ; 271             ;
-;     -- Dedicated logic registers            ; 271             ;
-;     -- I/O registers                        ; 0               ;
-;                                             ;                 ;
-; I/O pins                                    ; 7               ;
-; Embedded Multiplier 9-bit elements          ; 0               ;
-; Maximum fan-out node                        ; sys_rst_n~input ;
-; Maximum fan-out                             ; 271             ;
-; Total fan-out                               ; 7323            ;
-; Average fan-out                             ; 3.10            ;
-+---------------------------------------------+-----------------+
++-------------------------------------------------------------------------------+
+; Partition Status Summary                                                      ;
++--------------------------------+-------------+--------------------------------+
+; Partition Name                 ; Synthesized ; Reason                         ;
++--------------------------------+-------------+--------------------------------+
+; Top                            ; yes         ; Dependent files changed        ;
+; sld_signaltap:auto_signaltap_0 ; yes         ; No netlist in project database ;
+; sld_hub:auto_hub               ; yes         ; No netlist in project database ;
++--------------------------------+-------------+--------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------+
+; Dependent File Changes for Partition Top                                                                                                         ;
++------------------------+--------------------+-------------------+----------+----------------------------------+----------------------------------+
+; Hierarchy              ; File Name          ; Relative Location ; Change   ; Old                              ; New                              ;
++------------------------+--------------------+-------------------+----------+----------------------------------+----------------------------------+
+; speed_acq:ut_speed_acq ; ../rtl/speed_acq.v ; Project Directory ; Checksum ; 5a006693660a3aca30b77606fd7ea7bb ; 9d37f51a84030efd5086d3f498fcb821 ;
++------------------------+--------------------+-------------------+----------+----------------------------------+----------------------------------+
 
 
 +-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                           ;
+; Partition for Top-Level Resource Utilization by Entity                                                                                                                                                                                                                                                                                        ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                        ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                                                                            ; Library Name ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
-; |SmartFans                                        ; 2077 (1)          ; 271 (0)      ; 0           ; 0            ; 0       ; 0         ; 7    ; 0            ; |SmartFans                                                                                                                                                     ; work         ;
-;    |ds18b20_ctrl:ut_ds18b20_ctrl|                 ; 244 (90)          ; 66 (66)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl                                                                                                                        ; work         ;
-;       |lpm_divide:Div0|                           ; 123 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0                                                                                                        ; work         ;
-;          |lpm_divide_dkm:auto_generated|          ; 123 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0|lpm_divide_dkm:auto_generated                                                                          ; work         ;
-;             |sign_div_unsign_5nh:divider|         ; 123 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0|lpm_divide_dkm:auto_generated|sign_div_unsign_5nh:divider                                              ; work         ;
-;                |alt_u_div_u9f:divider|            ; 123 (123)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0|lpm_divide_dkm:auto_generated|sign_div_unsign_5nh:divider|alt_u_div_u9f:divider                        ; work         ;
-;       |lpm_mult:Mult0|                            ; 31 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0                                                                                                         ; work         ;
-;          |multcore:mult_core|                     ; 31 (15)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core                                                                                      ; work         ;
-;             |mpar_add:padder|                     ; 16 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                                      ; work         ;
-;                |lpm_add_sub:adder[0]|             ; 10 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]                                                 ; work         ;
-;                   |add_sub_ngh:auto_generated|    ; 10 (10)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]|add_sub_ngh:auto_generated                      ; work         ;
-;                |mpar_add:sub_par_add|             ; 6 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add                                                 ; work         ;
-;                   |lpm_add_sub:adder[0]|          ; 6 (0)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]                            ; work         ;
-;                      |add_sub_rgh:auto_generated| ; 6 (6)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]|add_sub_rgh:auto_generated ; work         ;
-;    |logic_ctrl:ut_logic_ctrl|                     ; 409 (73)          ; 7 (7)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|logic_ctrl:ut_logic_ctrl                                                                                                                            ; work         ;
+; |SmartFans                                        ; 2214 (0)          ; 260 (0)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans                                                                                                                                                     ; work         ;
+;    |ds18b20_ctrl:ut_ds18b20_ctrl|                 ; 390 (90)          ; 66 (66)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl                                                                                                                        ; work         ;
+;       |lpm_divide:Div0|                           ; 248 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0                                                                                                        ; work         ;
+;          |lpm_divide_ekm:auto_generated|          ; 248 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0|lpm_divide_ekm:auto_generated                                                                          ; work         ;
+;             |sign_div_unsign_6nh:divider|         ; 248 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0|lpm_divide_ekm:auto_generated|sign_div_unsign_6nh:divider                                              ; work         ;
+;                |alt_u_div_0af:divider|            ; 248 (248)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0|lpm_divide_ekm:auto_generated|sign_div_unsign_6nh:divider|alt_u_div_0af:divider                        ; work         ;
+;       |lpm_mult:Mult0|                            ; 52 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0                                                                                                         ; work         ;
+;          |multcore:mult_core|                     ; 52 (26)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core                                                                                      ; work         ;
+;             |mpar_add:padder|                     ; 26 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                                      ; work         ;
+;                |lpm_add_sub:adder[0]|             ; 14 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]                                                 ; work         ;
+;                   |add_sub_ngh:auto_generated|    ; 14 (14)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]|add_sub_ngh:auto_generated                      ; work         ;
+;                |mpar_add:sub_par_add|             ; 12 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add                                                 ; work         ;
+;                   |lpm_add_sub:adder[0]|          ; 12 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]                            ; work         ;
+;                      |add_sub_rgh:auto_generated| ; 12 (12)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]|add_sub_rgh:auto_generated ; work         ;
+;    |logic_ctrl:ut_logic_ctrl|                     ; 425 (89)          ; 7 (7)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|logic_ctrl:ut_logic_ctrl                                                                                                                            ; work         ;
 ;       |lpm_divide:Div0|                           ; 126 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|logic_ctrl:ut_logic_ctrl|lpm_divide:Div0                                                                                                            ; work         ;
 ;          |lpm_divide_1jm:auto_generated|          ; 126 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|logic_ctrl:ut_logic_ctrl|lpm_divide:Div0|lpm_divide_1jm:auto_generated                                                                              ; work         ;
 ;             |sign_div_unsign_plh:divider|         ; 126 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|logic_ctrl:ut_logic_ctrl|lpm_divide:Div0|lpm_divide_1jm:auto_generated|sign_div_unsign_plh:divider                                                  ; work         ;
@@ -308,13 +301,13 @@ applicable agreement for further details.
 ;             |mpar_add:padder|                     ; 10 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder                                                                              ; work         ;
 ;                |lpm_add_sub:adder[0]|             ; 10 (0)            ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]                                                         ; work         ;
 ;                   |add_sub_ogh:auto_generated|    ; 10 (10)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]|add_sub_ogh:auto_generated                              ; work         ;
-;    |speed_acq:ut_speed_acq|                       ; 1067 (99)         ; 82 (82)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq                                                                                                                              ; work         ;
-;       |lpm_divide:Div0|                           ; 968 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0                                                                                                              ; work         ;
-;          |lpm_divide_hkm:auto_generated|          ; 968 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0|lpm_divide_hkm:auto_generated                                                                                ; work         ;
-;             |sign_div_unsign_9nh:divider|         ; 968 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0|lpm_divide_hkm:auto_generated|sign_div_unsign_9nh:divider                                                    ; work         ;
-;                |alt_u_div_6af:divider|            ; 968 (968)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0|lpm_divide_hkm:auto_generated|sign_div_unsign_9nh:divider|alt_u_div_6af:divider                              ; work         ;
+;    |speed_acq:ut_speed_acq|                       ; 1040 (87)         ; 70 (70)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq                                                                                                                              ; work         ;
+;       |lpm_divide:Div0|                           ; 953 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0                                                                                                              ; work         ;
+;          |lpm_divide_lkm:auto_generated|          ; 953 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0|lpm_divide_lkm:auto_generated                                                                                ; work         ;
+;             |sign_div_unsign_dnh:divider|         ; 953 (0)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0|lpm_divide_lkm:auto_generated|sign_div_unsign_dnh:divider                                                    ; work         ;
+;                |alt_u_div_eaf:divider|            ; 953 (953)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0|lpm_divide_lkm:auto_generated|sign_div_unsign_dnh:divider|alt_u_div_eaf:divider                              ; work         ;
 ;    |uart_rx:ut_uart_rx|                           ; 44 (44)           ; 54 (54)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|uart_rx:ut_uart_rx                                                                                                                                  ; work         ;
-;    |uart_tx:ut_uart_tx|                           ; 106 (106)         ; 50 (50)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|uart_tx:ut_uart_tx                                                                                                                                  ; work         ;
+;    |uart_tx:ut_uart_tx|                           ; 109 (109)         ; 51 (51)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |SmartFans|uart_tx:ut_uart_tx                                                                                                                                  ; work         ;
 +---------------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -346,44 +339,17 @@ Encoding Type:  One-Hot
 +-----------------+-------------+---------------+-----------------+
 
 
-+------------------------------------------------------------+
-; Registers Removed During Synthesis                         ;
-+---------------------------------------+--------------------+
-; Register name                         ; Reason for Removal ;
-+---------------------------------------+--------------------+
-; ds18b20_ctrl:ut_ds18b20_ctrl|state~4  ; Lost fanout        ;
-; ds18b20_ctrl:ut_ds18b20_ctrl|state~5  ; Lost fanout        ;
-; ds18b20_ctrl:ut_ds18b20_ctrl|state~6  ; Lost fanout        ;
-; Total Number of Removed Registers = 3 ;                    ;
-+---------------------------------------+--------------------+
-
-
-+------------------------------------------------------+
-; General Register Statistics                          ;
-+----------------------------------------------+-------+
-; Statistic                                    ; Value ;
-+----------------------------------------------+-------+
-; Total registers                              ; 271   ;
-; Number of registers using Synchronous Clear  ; 102   ;
-; Number of registers using Synchronous Load   ; 5     ;
-; Number of registers using Asynchronous Clear ; 271   ;
-; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 136   ;
-; Number of registers using Preset             ; 0     ;
-+----------------------------------------------+-------+
-
-
-+--------------------------------------------------+
-; Inverted Register Statistics                     ;
-+----------------------------------------+---------+
-; Inverted Register                      ; Fan out ;
-+----------------------------------------+---------+
-; uart_tx:ut_uart_tx|tx                  ; 2       ;
-; uart_rx:ut_uart_rx|rx_reg3             ; 3       ;
-; uart_rx:ut_uart_rx|rx_reg2             ; 2       ;
-; uart_rx:ut_uart_rx|rx_reg1             ; 1       ;
-; Total number of inverted registers = 4 ;         ;
-+----------------------------------------+---------+
++------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                 ;
++-------------------------------------------+----------------------------------------+
+; Register name                             ; Reason for Removal                     ;
++-------------------------------------------+----------------------------------------+
+; ds18b20_ctrl:ut_ds18b20_ctrl|data[11..19] ; Stuck at GND due to stuck port data_in ;
+; ds18b20_ctrl:ut_ds18b20_ctrl|state~4      ; Lost fanout                            ;
+; ds18b20_ctrl:ut_ds18b20_ctrl|state~5      ; Lost fanout                            ;
+; ds18b20_ctrl:ut_ds18b20_ctrl|state~6      ; Lost fanout                            ;
+; Total Number of Removed Registers = 12    ;                                        ;
++-------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -391,13 +357,13 @@ Encoding Type:  One-Hot
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                         ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
-; 3:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |SmartFans|uart_tx:ut_uart_tx|baud_cnt[3]          ;
+; 3:1                ; 13 bits   ; 26 LEs        ; 13 LEs               ; 13 LEs                 ; Yes        ; |SmartFans|uart_tx:ut_uart_tx|baud_cnt[4]          ;
 ; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|bit_cnt[1] ;
-; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |SmartFans|uart_tx:ut_uart_tx|bit_cnt[4]           ;
-; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |SmartFans|speed_acq:ut_speed_acq|counter[8]       ;
-; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |SmartFans|uart_rx:ut_uart_rx|rx_data[8]           ;
-; 8:1                ; 4 bits    ; 20 LEs        ; 16 LEs               ; 4 LEs                  ; Yes        ; |SmartFans|logic_ctrl:ut_logic_ctrl|duty_data[3]   ;
-; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |SmartFans|uart_tx:ut_uart_tx|Selector2            ;
+; 3:1                ; 5 bits    ; 10 LEs        ; 5 LEs                ; 5 LEs                  ; Yes        ; |SmartFans|uart_tx:ut_uart_tx|bit_cnt[2]           ;
+; 3:1                ; 26 bits   ; 52 LEs        ; 26 LEs               ; 26 LEs                 ; Yes        ; |SmartFans|speed_acq:ut_speed_acq|counter[3]       ;
+; 3:1                ; 8 bits    ; 16 LEs        ; 8 LEs                ; 8 LEs                  ; Yes        ; |SmartFans|uart_rx:ut_uart_rx|rx_data[12]          ;
+; 8:1                ; 4 bits    ; 20 LEs        ; 16 LEs               ; 4 LEs                  ; Yes        ; |SmartFans|logic_ctrl:ut_logic_ctrl|duty_data[2]   ;
+; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; No         ; |SmartFans|uart_tx:ut_uart_tx|Selector1            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------+
 
 
@@ -503,14 +469,14 @@ Note: In order to hide this table in the UI and the text report file, please set
 +------------------------+----------------+-----------------------------------------------------+
 ; Parameter Name         ; Value          ; Type                                                ;
 +------------------------+----------------+-----------------------------------------------------+
-; LPM_WIDTHN             ; 14             ; Untyped                                             ;
-; LPM_WIDTHD             ; 10             ; Untyped                                             ;
+; LPM_WIDTHN             ; 20             ; Untyped                                             ;
+; LPM_WIDTHD             ; 14             ; Untyped                                             ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                             ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                             ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                             ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                             ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                             ;
-; CBXI_PARAMETER         ; lpm_divide_dkm ; Untyped                                             ;
+; CBXI_PARAMETER         ; lpm_divide_ekm ; Untyped                                             ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                             ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                             ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                          ;
@@ -585,13 +551,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Parameter Name         ; Value          ; Type                                          ;
 +------------------------+----------------+-----------------------------------------------+
 ; LPM_WIDTHN             ; 32             ; Untyped                                       ;
-; LPM_WIDTHD             ; 32             ; Untyped                                       ;
+; LPM_WIDTHD             ; 27             ; Untyped                                       ;
 ; LPM_NREPRESENTATION    ; UNSIGNED       ; Untyped                                       ;
 ; LPM_DREPRESENTATION    ; UNSIGNED       ; Untyped                                       ;
 ; LPM_PIPELINE           ; 0              ; Untyped                                       ;
 ; LPM_REMAINDERPOSITIVE  ; TRUE           ; Untyped                                       ;
 ; MAXIMIZE_SPEED         ; 5              ; Untyped                                       ;
-; CBXI_PARAMETER         ; lpm_divide_hkm ; Untyped                                       ;
+; CBXI_PARAMETER         ; lpm_divide_lkm ; Untyped                                       ;
 ; CARRY_CHAIN            ; MANUAL         ; Untyped                                       ;
 ; OPTIMIZE_FOR_SPEED     ; 5              ; Untyped                                       ;
 ; AUTO_CARRY_CHAINS      ; ON             ; AUTO_CARRY                                    ;
@@ -648,44 +614,99 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-------------------------------------------------------------------------------------+
-; lpm_mult Parameter Settings by Entity Instance                                      ;
-+---------------------------------------+---------------------------------------------+
-; Name                                  ; Value                                       ;
-+---------------------------------------+---------------------------------------------+
-; Number of entity instances            ; 2                                           ;
-; Entity Instance                       ; ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0 ;
-;     -- LPM_WIDTHA                     ; 11                                          ;
-;     -- LPM_WIDTHB                     ; 10                                          ;
-;     -- LPM_WIDTHP                     ; 21                                          ;
-;     -- LPM_REPRESENTATION             ; UNSIGNED                                    ;
-;     -- INPUT_A_IS_CONSTANT            ; NO                                          ;
-;     -- INPUT_B_IS_CONSTANT            ; YES                                         ;
-;     -- USE_EAB                        ; OFF                                         ;
-;     -- DEDICATED_MULTIPLIER_CIRCUITRY ; AUTO                                        ;
-;     -- INPUT_A_FIXED_VALUE            ; Bx                                          ;
-;     -- INPUT_B_FIXED_VALUE            ; Bx                                          ;
-; Entity Instance                       ; pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0         ;
-;     -- LPM_WIDTHA                     ; 7                                           ;
-;     -- LPM_WIDTHB                     ; 11                                          ;
-;     -- LPM_WIDTHP                     ; 18                                          ;
-;     -- LPM_REPRESENTATION             ; UNSIGNED                                    ;
-;     -- INPUT_A_IS_CONSTANT            ; NO                                          ;
-;     -- INPUT_B_IS_CONSTANT            ; YES                                         ;
-;     -- USE_EAB                        ; OFF                                         ;
-;     -- DEDICATED_MULTIPLIER_CIRCUITRY ; AUTO                                        ;
-;     -- INPUT_A_FIXED_VALUE            ; Bx                                          ;
-;     -- INPUT_B_FIXED_VALUE            ; Bx                                          ;
-+---------------------------------------+---------------------------------------------+
++----------------------------------------------------------------------------------------+
+; Partition Dependent Files                                                              ;
++-----------------------+-------------------+---------+----------------------------------+
+; File                  ; Location          ; Library ; Checksum                         ;
++-----------------------+-------------------+---------+----------------------------------+
+; ../rtl/ds18b20_ctrl.v ; Project Directory ; work    ; 01a69bb450a25a78687b13d53146986d ;
+; ../rtl/logic_ctrl.v   ; Project Directory ; work    ; f45eb9ec035782bebad14229fe607206 ;
+; ../rtl/pwm_ctrl.v     ; Project Directory ; work    ; cae98587f3a6e54ef0f935f3f7fc29bf ;
+; ../rtl/SmartFans.v    ; Project Directory ; work    ; c37b9efa040b729d6c6f04edb2180679 ;
+; ../rtl/speed_acq.v    ; Project Directory ; work    ; 9d37f51a84030efd5086d3f498fcb821 ;
+; ../rtl/uart_rx.v      ; Project Directory ; work    ; b62ac2648079ac4ed7c55b52e2d246c8 ;
+; ../rtl/uart_tx.v      ; Project Directory ; work    ; 0450ddcc8a3f6a380655a795ee390a34 ;
++-----------------------+-------------------+---------+----------------------------------+
 
 
-+-------------------------------+
-; Elapsed Time Per Partition    ;
-+----------------+--------------+
-; Partition Name ; Elapsed Time ;
-+----------------+--------------+
-; Top            ; 00:00:06     ;
-+----------------+--------------+
++-------------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: sld_signaltap:auto_signaltap_0                 ;
++-------------------------------------------------+------------------------------+----------------+
+; Parameter Name                                  ; Value                        ; Type           ;
++-------------------------------------------------+------------------------------+----------------+
+; lpm_type                                        ; sld_signaltap                ; String         ;
+; sld_node_info                                   ; 805334528                    ; Untyped        ;
+; SLD_IP_VERSION                                  ; 6                            ; Signed Integer ;
+; SLD_IP_MINOR_VERSION                            ; 0                            ; Signed Integer ;
+; SLD_COMMON_IP_VERSION                           ; 0                            ; Signed Integer ;
+; sld_data_bits                                   ; 1                            ; Untyped        ;
+; sld_trigger_bits                                ; 1                            ; Untyped        ;
+; SLD_NODE_CRC_BITS                               ; 32                           ; Signed Integer ;
+; sld_node_crc_hiword                             ; 27339                        ; Untyped        ;
+; sld_node_crc_loword                             ; 27114                        ; Untyped        ;
+; SLD_INCREMENTAL_ROUTING                         ; 0                            ; Signed Integer ;
+; sld_sample_depth                                ; 2048                         ; Untyped        ;
+; sld_segment_size                                ; 2048                         ; Untyped        ;
+; SLD_RAM_BLOCK_TYPE                              ; AUTO                         ; String         ;
+; sld_state_bits                                  ; 11                           ; Untyped        ;
+; sld_buffer_full_stop                            ; 1                            ; Untyped        ;
+; SLD_MEM_ADDRESS_BITS                            ; 7                            ; Signed Integer ;
+; SLD_DATA_BIT_CNTR_BITS                          ; 4                            ; Signed Integer ;
+; sld_trigger_level                               ; 1                            ; Untyped        ;
+; sld_trigger_in_enabled                          ; 0                            ; Untyped        ;
+; SLD_HPS_TRIGGER_IN_ENABLED                      ; 0                            ; Signed Integer ;
+; SLD_HPS_TRIGGER_OUT_ENABLED                     ; 0                            ; Signed Integer ;
+; SLD_HPS_EVENT_ENABLED                           ; 0                            ; Signed Integer ;
+; SLD_HPS_EVENT_ID                                ; 0                            ; Signed Integer ;
+; sld_advanced_trigger_entity                     ; basic,1,                     ; Untyped        ;
+; sld_trigger_level_pipeline                      ; 1                            ; Untyped        ;
+; sld_enable_advanced_trigger                     ; 0                            ; Untyped        ;
+; SLD_ADVANCED_TRIGGER_1                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_2                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_3                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_4                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_5                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_6                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_7                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_8                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_9                          ; NONE                         ; String         ;
+; SLD_ADVANCED_TRIGGER_10                         ; NONE                         ; String         ;
+; sld_inversion_mask_length                       ; 28                           ; Untyped        ;
+; sld_inversion_mask                              ; 0000000000000000000000000000 ; Untyped        ;
+; sld_power_up_trigger                            ; 0                            ; Untyped        ;
+; SLD_STATE_FLOW_MGR_ENTITY                       ; state_flow_mgr_entity.vhd    ; String         ;
+; sld_state_flow_use_generated                    ; 0                            ; Untyped        ;
+; sld_current_resource_width                      ; 1                            ; Untyped        ;
+; sld_attribute_mem_mode                          ; OFF                          ; Untyped        ;
+; SLD_STORAGE_QUALIFIER_BITS                      ; 1                            ; Signed Integer ;
+; SLD_STORAGE_QUALIFIER_GAP_RECORD                ; 0                            ; Signed Integer ;
+; SLD_STORAGE_QUALIFIER_MODE                      ; OFF                          ; String         ;
+; SLD_STORAGE_QUALIFIER_ENABLE_ADVANCED_CONDITION ; 0                            ; Signed Integer ;
+; sld_storage_qualifier_inversion_mask_length     ; 0                            ; Untyped        ;
+; SLD_STORAGE_QUALIFIER_ADVANCED_CONDITION_ENTITY ; basic                        ; String         ;
+; SLD_STORAGE_QUALIFIER_PIPELINE                  ; 0                            ; Signed Integer ;
++-------------------------------------------------+------------------------------+----------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; SignalTap II Logic Analyzer Settings                                                                                                                                                                                                                                    ;
++----------------+------------------+---------------------+------------------+--------------+----------+------------------------+----------------------+--------------------+-----------------------------+-----------------+------------------+--------------------------+
+; Instance Index ; Instance Name    ; Trigger Input Width ; Data Input Width ; Sample Depth ; Segments ; Storage Qualifier Type ; Trigger Flow Control ; Trigger Conditions ; Advanced Trigger Conditions ; Trigger In Used ; Trigger Out Used ; Power-Up Trigger Enabled ;
++----------------+------------------+---------------------+------------------+--------------+----------+------------------------+----------------------+--------------------+-----------------------------+-----------------+------------------+--------------------------+
+; 0              ; auto_signaltap_0 ; 1                   ; 1                ; 2048         ; 1        ; continuous             ; sequential           ; 1                  ; 0                           ; no              ; no               ; no                       ;
++----------------+------------------+---------------------+------------------+--------------+----------+------------------------+----------------------+--------------------+-----------------------------+-----------------+------------------+--------------------------+
+
+
++-----------------------------------------------+
+; Elapsed Time Per Partition                    ;
++--------------------------------+--------------+
+; Partition Name                 ; Elapsed Time ;
++--------------------------------+--------------+
+; sld_signaltap:auto_signaltap_0 ; 00:00:05     ;
+; Top                            ; 00:00:05     ;
+; sld_hub:auto_hub               ; 00:00:05     ;
++--------------------------------+--------------+
 
 
 +-------------------------------+
@@ -694,7 +715,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
-    Info: Processing started: Sat Jan 04 22:21:36 2025
+    Info: Processing started: Tue Jan 07 17:58:38 2025
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off SmartFans -c SmartFans
 Info (11104): Parallel Compilation has detected 20 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 14 of the 14 physical processors detected instead.
 Info (12021): Found 1 design units, including 1 entities, in source file /project/quartusprj/school/smartfans/rtl/ds18b20_ctrl.v
@@ -722,10 +743,39 @@ Warning (10230): Verilog HDL assignment warning at pwm_ctrl.v(19): truncated val
 Info (12128): Elaborating entity "uart_rx" for hierarchy "uart_rx:ut_uart_rx"
 Info (12128): Elaborating entity "uart_tx" for hierarchy "uart_tx:ut_uart_tx"
 Info (12128): Elaborating entity "speed_acq" for hierarchy "speed_acq:ut_speed_acq"
-Warning (10230): Verilog HDL assignment warning at speed_acq.v(55): truncated value with size 32 to match size of target (16)
+Warning (10036): Verilog HDL or VHDL warning at speed_acq.v(12): object "fg_signal_d" assigned a value but never read
+Warning (10230): Verilog HDL assignment warning at speed_acq.v(48): truncated value with size 32 to match size of target (26)
+Warning (10230): Verilog HDL assignment warning at speed_acq.v(60): truncated value with size 32 to match size of target (16)
 Info (12128): Elaborating entity "ds18b20_ctrl" for hierarchy "ds18b20_ctrl:ut_ds18b20_ctrl"
-Warning (10230): Verilog HDL assignment warning at ds18b20_ctrl.v(37): truncated value with size 14 to match size of target (8)
-Warning (10230): Verilog HDL assignment warning at ds18b20_ctrl.v(250): truncated value with size 16 to match size of target (11)
+Warning (10230): Verilog HDL assignment warning at ds18b20_ctrl.v(37): truncated value with size 20 to match size of target (8)
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ot14.tdf
+    Info (12023): Found entity 1: altsyncram_ot14
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_rsc.tdf
+    Info (12023): Found entity 1: mux_rsc
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_dvf.tdf
+    Info (12023): Found entity 1: decode_dvf
+Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_g9j.tdf
+    Info (12023): Found entity 1: cntr_g9j
+Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_egi.tdf
+    Info (12023): Found entity 1: cntr_egi
+Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr_rgc.tdf
+    Info (12023): Found entity 1: cmpr_rgc
+Info (12021): Found 1 design units, including 1 entities, in source file db/cntr_23j.tdf
+    Info (12023): Found entity 1: cntr_23j
+Info (12021): Found 1 design units, including 1 entities, in source file db/cmpr_ngc.tdf
+    Info (12023): Found entity 1: cmpr_ngc
+Info (12033): Analysis and Synthesis generated SignalTap II or debug node instance "auto_signaltap_0"
+Info (12206): 3 design partitions require synthesis
+    Info (12211): Partition "Top" requires synthesis because there were changes to its dependent source files
+    Info (12213): Partition "sld_signaltap:auto_signaltap_0" requires synthesis because the project database does not contain a post-synthesis netlist for this partition
+    Info (12213): Partition "sld_hub:auto_hub" requires synthesis because the project database does not contain a post-synthesis netlist for this partition
+Info (12209): No design partitions will skip synthesis in the current incremental compilation
+Info (281037): Using 14 processors to synthesize 3 partitions in parallel
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
+    Info: Processing started: Tue Jan 07 17:58:41 2025
+Info: Command: quartus_map --parallel=1 --helper=0 --partition=Top SmartFans -c SmartFans
 Info (278001): Inferred 7 megafunctions from design logic
     Info (278003): Inferred multiplier megafunction ("lpm_mult") from the following logic: "ds18b20_ctrl:ut_ds18b20_ctrl|Mult0"
     Info (278004): Inferred divider/modulo megafunction ("lpm_divide") from the following logic: "ds18b20_ctrl:ut_ds18b20_ctrl|Div0"
@@ -757,16 +807,16 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/add_
 Info (12131): Elaborated megafunction instantiation "ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|altshift:external_latency_ffs", which is child of megafunction instantiation "ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0"
 Info (12130): Elaborated megafunction instantiation "ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0"
 Info (12133): Instantiated megafunction "ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0" with the following parameter:
-    Info (12134): Parameter "LPM_WIDTHN" = "14"
-    Info (12134): Parameter "LPM_WIDTHD" = "10"
+    Info (12134): Parameter "LPM_WIDTHN" = "20"
+    Info (12134): Parameter "LPM_WIDTHD" = "14"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
     Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_dkm.tdf
-    Info (12023): Found entity 1: lpm_divide_dkm
-Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_5nh.tdf
-    Info (12023): Found entity 1: sign_div_unsign_5nh
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_u9f.tdf
-    Info (12023): Found entity 1: alt_u_div_u9f
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_ekm.tdf
+    Info (12023): Found entity 1: lpm_divide_ekm
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_6nh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_6nh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_0af.tdf
+    Info (12023): Found entity 1: alt_u_div_0af
 Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_7pc.tdf
     Info (12023): Found entity 1: add_sub_7pc
 Info (12021): Found 1 design units, including 1 entities, in source file db/add_sub_8pc.tdf
@@ -803,15 +853,15 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alt_
 Info (12130): Elaborated megafunction instantiation "speed_acq:ut_speed_acq|lpm_divide:Div0"
 Info (12133): Instantiated megafunction "speed_acq:ut_speed_acq|lpm_divide:Div0" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "32"
-    Info (12134): Parameter "LPM_WIDTHD" = "32"
+    Info (12134): Parameter "LPM_WIDTHD" = "27"
     Info (12134): Parameter "LPM_NREPRESENTATION" = "UNSIGNED"
     Info (12134): Parameter "LPM_DREPRESENTATION" = "UNSIGNED"
-Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_hkm.tdf
-    Info (12023): Found entity 1: lpm_divide_hkm
-Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_9nh.tdf
-    Info (12023): Found entity 1: sign_div_unsign_9nh
-Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_6af.tdf
-    Info (12023): Found entity 1: alt_u_div_6af
+Info (12021): Found 1 design units, including 1 entities, in source file db/lpm_divide_lkm.tdf
+    Info (12023): Found entity 1: lpm_divide_lkm
+Info (12021): Found 1 design units, including 1 entities, in source file db/sign_div_unsign_dnh.tdf
+    Info (12023): Found entity 1: sign_div_unsign_dnh
+Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_eaf.tdf
+    Info (12023): Found entity 1: alt_u_div_eaf
 Info (12130): Elaborated megafunction instantiation "logic_ctrl:ut_logic_ctrl|lpm_divide:Div0"
 Info (12133): Instantiated megafunction "logic_ctrl:ut_logic_ctrl|lpm_divide:Div0" with the following parameter:
     Info (12134): Parameter "LPM_WIDTHN" = "32"
@@ -836,21 +886,66 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/sign
     Info (12023): Found entity 1: sign_div_unsign_qlh
 Info (12021): Found 1 design units, including 1 entities, in source file db/alt_u_div_87f.tdf
     Info (12023): Found entity 1: alt_u_div_87f
+Info (281020): Starting Logic Optimization and Technology Mapping for Top Partition
 Info (13000): Registers with preset signals will power-up high
 Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
-Info (286030): Timing-Driven Synthesis is running
+Info (286031): Timing-Driven Synthesis is running on partition "Top"
 Info (17049): 3 registers lost all their fanouts during netlist optimizations.
-Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
-    Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 2167 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 2299 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 4 input pins
     Info (21059): Implemented 2 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 2160 logic cells
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 8 warnings
-    Info: Peak virtual memory: 4721 megabytes
-    Info: Processing ended: Sat Jan 04 22:21:44 2025
+    Info (21061): Implemented 2292 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 0 warnings
+    Info: Peak virtual memory: 4631 megabytes
+    Info: Processing ended: Tue Jan 07 17:58:46 2025
+    Info: Elapsed time: 00:00:05
+    Info: Total CPU time (on all processors): 00:00:07
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
+    Info: Processing started: Tue Jan 07 17:58:41 2025
+Info: Command: quartus_map --parallel=1 --helper=1 --partition=sld_signaltap:auto_signaltap_0 SmartFans -c SmartFans
+Info (281019): Starting Logic Optimization and Technology Mapping for Partition sld_signaltap:auto_signaltap_0
+Info (13000): Registers with preset signals will power-up high
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (18057): The assignment to disallow NOT gate push-back on register "sld_signaltap:auto_signaltap_0|sld_signaltap_impl:sld_signaltap_body|sld_signaltap_implb:sld_signaltap_body|trigger_out_mode_ff" is ignored
+Info (286031): Timing-Driven Synthesis is running on partition "sld_signaltap:auto_signaltap_0"
+Info (21057): Implemented 467 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 59 input pins
+    Info (21059): Implemented 12 output pins
+    Info (21061): Implemented 395 logic cells
+    Info (21064): Implemented 1 RAM segments
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 1 warning
+    Info: Peak virtual memory: 4581 megabytes
+    Info: Processing ended: Tue Jan 07 17:58:42 2025
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:03
+Info: *******************************************************************
+Info: Running Quartus II 64-Bit Analysis & Synthesis
+    Info: Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Full Version
+    Info: Processing started: Tue Jan 07 17:58:41 2025
+Info: Command: quartus_map --parallel=1 --helper=2 --partition=sld_hub:auto_hub SmartFans -c SmartFans
+Info (281019): Starting Logic Optimization and Technology Mapping for Partition sld_hub:auto_hub
+Info (13000): Registers with preset signals will power-up high
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+Warning (13024): Output pins are stuck at VCC or GND
+    Warning (13410): Pin "sld_hub:auto_hub|receive[0][0]" is stuck at GND
+Info (286031): Timing-Driven Synthesis is running on partition "sld_hub:auto_hub"
+Info (21057): Implemented 202 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 19 input pins
+    Info (21059): Implemented 37 output pins
+    Info (21061): Implemented 146 logic cells
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 2 warnings
+    Info: Peak virtual memory: 4581 megabytes
+    Info: Processing ended: Tue Jan 07 17:58:42 2025
+    Info: Elapsed time: 00:00:01
+    Info: Total CPU time (on all processors): 00:00:03
+Info (281038): Finished parallel synthesis of all partitions
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 12 warnings
+    Info: Peak virtual memory: 4727 megabytes
+    Info: Processing ended: Tue Jan 07 17:58:46 2025
     Info: Elapsed time: 00:00:08
-    Info: Total CPU time (on all processors): 00:00:06
+    Info: Total CPU time (on all processors): 00:00:09
 
 

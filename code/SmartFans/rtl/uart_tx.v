@@ -19,7 +19,7 @@ reg         bit_flag;       //比特标志位
 reg [4:0]   bit_cnt ;       //比特计数器
 reg         send_flag;      //发送开始标志位
 wire [23:0]       send_data;      //打包好的数据,(temp_data 8位 + rpm 16位 = 3Byte = 24bit )
-reg [25:0]  cnt_1s;             // 1秒计数器
+reg [26:0]  cnt_1s;             // 1秒计数器
 reg [1:0]   state;             // 状态机变量
 
 // 状态机状态

@@ -5,9 +5,9 @@
 		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|mpar_add:sub_par_add|lpm_add_sub:adder[0]" CBX_FILE_NAME="add_sub_rgh.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|logic_ctrl:ut_logic_ctrl|lpm_divide:Div1" CBX_FILE_NAME="lpm_divide_2jm.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|pwm_ctrl:ut_pwm_ctrl|lpm_mult:Mult0|multcore:mult_core|mpar_add:padder|lpm_add_sub:adder[0]" CBX_FILE_NAME="add_sub_ogh.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_dkm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|ds18b20_ctrl:ut_ds18b20_ctrl|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_ekm.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|logic_ctrl:ut_logic_ctrl|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_1jm.tdf"/>
 		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|pwm_ctrl:ut_pwm_ctrl|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_7jm.tdf"/>
-		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_hkm.tdf"/>
+		<CBX_INST_ENTRY INSTANCE_NAME="|SmartFans|speed_acq:ut_speed_acq|lpm_divide:Div0" CBX_FILE_NAME="lpm_divide_lkm.tdf"/>
 	</PROJECT>
 </LOG_ROOT>

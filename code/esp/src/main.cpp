@@ -78,7 +78,7 @@ void processSerialData()
     pCharacteristicTX->setValue(jsonDataToSend);
     pCharacteristicTX->notify();
 
-    Serial.printf("Parsed Data -> Temperature: %d, Speed: %d\n", temperature, speed);
+    //Serial.printf("Parsed Data -> Temperature: %d, Speed: %d\n", temperature, speed);
   }
 }
 
