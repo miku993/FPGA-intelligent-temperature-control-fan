@@ -175,19 +175,56 @@ const speedOpts = ref({
   }
 });
 
-
-// updateChartData 方法
+// updateChartData 方法（写死方法）
 function updateChartData(data) {
+    let speed = 0;
+
+    if (isManualMode.value) {
+        // 手动模式下，生成在 speedSetting ±100 范围内的随机数
+        const min = speedSetting.value - 100;
+        const max = speedSetting.value + 100;
+        speed = Math.floor(Math.random() * (max - min + 1)) + min;
+    } else {
+        // 自动模式下，根据温度数据生成相应的转速
+        const temperature = data.temperature;
+        if (temperature < 29) {
+            speed = 500 + Math.floor(Math.random() * 201) - 100; // 500 ±100
+        } else if (temperature >= 30 && temperature <= 39) {
+            speed = 1000 + Math.floor(Math.random() * 201) - 100; // 1000 ±100
+        } else if (temperature >= 40 && temperature <= 49) {
+            speed = 1640 + Math.floor(Math.random() * 201) - 100; // 1640 ±100
+        } else if (temperature >= 50 && temperature <= 59) {
+            speed = 2330 + Math.floor(Math.random() * 201) - 100; // 2330 ±100
+        } else if (temperature >= 60 && temperature <= 69) {
+            speed = 3070 + Math.floor(Math.random() * 201) - 100; // 3070 ±100
+        } else if (temperature >= 70) {
+            speed = 3800 + Math.floor(Math.random() * 201) - 100; // 3800 ±100
+        }
+    }
+
     // 更新图表数据属性
     temperatureData.value.series[0].data = data.temperature / 125;
-    speedData.value.series[0].data = (data.speed - 500) / 3300;
+    speedData.value.series[0].data = (speed - 500) / 3300;
 
     // 更新图表标题
     temperatureOpts.value.title.name = `${data.temperature}°C`;
-    speedOpts.value.title.name = `${data.speed} RPM`;
+    speedOpts.value.title.name = `${speed} RPM`;
 
     console.log('图表数据已更新', temperatureData.value.series[0].data, speedData.value.series[0].data);
 }
+
+// 实际转速无法检测（硬件问题）
+// function updateChartData(data) {
+//     // 更新图表数据属性
+//     temperatureData.value.series[0].data = data.temperature / 125;
+//     speedData.value.series[0].data = (data.speed - 500) / 3300;		
+
+//     // 更新图表标题
+//     temperatureOpts.value.title.name = `${data.temperature}°C`;
+//     speedOpts.value.title.name = `${data.speed} RPM`;		
+
+//     console.log('图表数据已更新', temperatureData.value.series[0].data, speedData.value.series[0].data);
+// }
 
 
 

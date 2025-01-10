@@ -57,7 +57,8 @@ always @(posedge sys_clk or negedge sys_rst_n) begin
         rpm <= 16'd0;
     end 
     else if (ts_count != 32'd0) begin
-        rpm <= (60 * CLK_FREQ) / (2 * ts_count); // 计算 RPM (4 极)
+        //rpm <= (60 * CLK_FREQ) / (2 * ts_count); // 计算 RPM (4 极)
+        rpm <= 16'd2000;        //测试
     end
 end
 

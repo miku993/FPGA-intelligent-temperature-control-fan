@@ -48,18 +48,18 @@ module logic_ctrl(
     function [6:0] temp_to_duty;
         input [7:0] temp;
         begin
-            if (temp <= 20)
+            if (temp <= 29)
                 temp_to_duty = 0;
-            else if (temp <= 25)
+            else if (temp <= 39)
                 temp_to_duty = 20;
-            else if (temp <= 30)
+            else if (temp <= 49)
                 temp_to_duty = 40;
-            else if (temp <= 35)
+            else if (temp <= 59)
                 temp_to_duty = 60;
-            else if (temp <= 40)
+            else if (temp <= 69)
                 temp_to_duty = 80;
             else
-                temp_to_duty = 100;  // 温度高于100时最大转速
+                temp_to_duty = 100;  // 温度高于70时最大转速
         end
     endfunction
 endmodule

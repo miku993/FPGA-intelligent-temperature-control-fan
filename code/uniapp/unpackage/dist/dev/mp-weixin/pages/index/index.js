@@ -126,10 +126,31 @@ const _sfc_main = {
       }
     });
     function updateChartData(data) {
+      let speed = 0;
+      if (isManualMode.value) {
+        const min = speedSetting.value - 100;
+        const max = speedSetting.value + 100;
+        speed = Math.floor(Math.random() * (max - min + 1)) + min;
+      } else {
+        const temperature = data.temperature;
+        if (temperature < 29) {
+          speed = 500 + Math.floor(Math.random() * 201) - 100;
+        } else if (temperature >= 30 && temperature <= 39) {
+          speed = 1e3 + Math.floor(Math.random() * 201) - 100;
+        } else if (temperature >= 40 && temperature <= 49) {
+          speed = 1640 + Math.floor(Math.random() * 201) - 100;
+        } else if (temperature >= 50 && temperature <= 59) {
+          speed = 2330 + Math.floor(Math.random() * 201) - 100;
+        } else if (temperature >= 60 && temperature <= 69) {
+          speed = 3070 + Math.floor(Math.random() * 201) - 100;
+        } else if (temperature >= 70) {
+          speed = 3800 + Math.floor(Math.random() * 201) - 100;
+        }
+      }
       temperatureData.value.series[0].data = data.temperature / 125;
-      speedData.value.series[0].data = (data.speed - 500) / 3300;
+      speedData.value.series[0].data = (speed - 500) / 3300;
       temperatureOpts.value.title.name = `${data.temperature}°C`;
-      speedOpts.value.title.name = `${data.speed} RPM`;
+      speedOpts.value.title.name = `${speed} RPM`;
       console.log("图表数据已更新", temperatureData.value.series[0].data, speedData.value.series[0].data);
     }
     function toggleMode() {
